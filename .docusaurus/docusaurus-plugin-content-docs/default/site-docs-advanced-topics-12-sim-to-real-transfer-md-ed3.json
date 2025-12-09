@@ -1,0 +1,25 @@
+{
+  "id": "Advanced-Topics/sim-to-real-transfer",
+  "title": "sim-to-real-transfer",
+  "description": "Hero Diagram: Sim-to-Real Transfer",
+  "source": "@site/docs/Advanced-Topics/12-sim-to-real-transfer.md",
+  "sourceDirName": "Advanced-Topics",
+  "slug": "/Advanced-Topics/sim-to-real-transfer",
+  "permalink": "/github.com/Anam258/my-handbook/docs/Advanced-Topics/sim-to-real-transfer",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/docs/Advanced-Topics/12-sim-to-real-transfer.md",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 12,
+  "frontMatter": {},
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "vla-cognitive-planning",
+    "permalink": "/github.com/Anam258/my-handbook/docs/Module-04-VLA-Voice/vla-cognitive-planning"
+  },
+  "next": {
+    "title": "hardware-lab-setup",
+    "permalink": "/github.com/Anam258/my-handbook/docs/Advanced-Topics/hardware-lab-setup"
+  }
+}

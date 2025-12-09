@@ -1,0 +1,25 @@
+{
+  "id": "Advanced-Topics/hardware-lab-setup",
+  "title": "hardware-lab-setup",
+  "description": "Hero Diagram: Hardware Lab Setup",
+  "source": "@site/docs/Advanced-Topics/13-hardware-lab-setup.md",
+  "sourceDirName": "Advanced-Topics",
+  "slug": "/Advanced-Topics/hardware-lab-setup",
+  "permalink": "/github.com/Anam258/my-handbook/docs/Advanced-Topics/hardware-lab-setup",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/docs/Advanced-Topics/13-hardware-lab-setup.md",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 13,
+  "frontMatter": {},
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "sim-to-real-transfer",
+    "permalink": "/github.com/Anam258/my-handbook/docs/Advanced-Topics/sim-to-real-transfer"
+  },
+  "next": {
+    "title": "capstone-autonomous-humanoid",
+    "permalink": "/github.com/Anam258/my-handbook/docs/Advanced-Topics/capstone-autonomous-humanoid"
+  }
+}

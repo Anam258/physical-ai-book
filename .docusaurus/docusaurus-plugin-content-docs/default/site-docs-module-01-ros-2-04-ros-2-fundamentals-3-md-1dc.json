@@ -1,0 +1,25 @@
+{
+  "id": "Module-01-ROS2/ros2-fundamentals-3",
+  "title": "ros2-fundamentals-3",
+  "description": "Hero Diagram: URDF for Humanoids",
+  "source": "@site/docs/Module-01-ROS2/04-ros2-fundamentals-3.md",
+  "sourceDirName": "Module-01-ROS2",
+  "slug": "/Module-01-ROS2/ros2-fundamentals-3",
+  "permalink": "/github.com/Anam258/my-handbook/docs/Module-01-ROS2/ros2-fundamentals-3",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/docs/Module-01-ROS2/04-ros2-fundamentals-3.md",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 4,
+  "frontMatter": {},
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "ros2-fundamentals-2",
+    "permalink": "/github.com/Anam258/my-handbook/docs/Module-01-ROS2/ros2-fundamentals-2"
+  },
+  "next": {
+    "title": "gazebo-simulation-1",
+    "permalink": "/github.com/Anam258/my-handbook/docs/Module-02-Simulation/gazebo-simulation-1"
+  }
+}

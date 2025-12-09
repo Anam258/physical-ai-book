@@ -1,0 +1,25 @@
+{
+  "id": "Module-04-VLA-Voice/vla-cognitive-planning",
+  "title": "vla-cognitive-planning",
+  "description": "Hero Diagram: LLMs to ROS 2 Actions",
+  "source": "@site/docs/Module-04-VLA-Voice/11-vla-cognitive-planning.md",
+  "sourceDirName": "Module-04-VLA-Voice",
+  "slug": "/Module-04-VLA-Voice/vla-cognitive-planning",
+  "permalink": "/github.com/Anam258/my-handbook/docs/Module-04-VLA-Voice/vla-cognitive-planning",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/docs/Module-04-VLA-Voice/11-vla-cognitive-planning.md",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 11,
+  "frontMatter": {},
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "vla-voice-action",
+    "permalink": "/github.com/Anam258/my-handbook/docs/Module-04-VLA-Voice/vla-voice-action"
+  },
+  "next": {
+    "title": "sim-to-real-transfer",
+    "permalink": "/github.com/Anam258/my-handbook/docs/Advanced-Topics/sim-to-real-transfer"
+  }
+}

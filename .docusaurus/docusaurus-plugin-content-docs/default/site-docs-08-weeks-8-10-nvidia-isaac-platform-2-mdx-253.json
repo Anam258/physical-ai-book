@@ -1,0 +1,28 @@
+{
+  "id": "weeks-8-10-nvidia-isaac-platform-2",
+  "title": "Weeks 8–10: NVIDIA Isaac Platform (Chapter 2)",
+  "description": "Learning Objectives",
+  "source": "@site/docs/08-weeks-8-10-nvidia-isaac-platform-2.mdx",
+  "sourceDirName": ".",
+  "slug": "/weeks-8-10-nvidia-isaac-platform-2",
+  "permalink": "/your-repo-name/docs/weeks-8-10-nvidia-isaac-platform-2",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/docs/08-weeks-8-10-nvidia-isaac-platform-2.mdx",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 8,
+  "frontMatter": {
+    "sidebar_position": 8,
+    "title": "Weeks 8–10: NVIDIA Isaac Platform (Chapter 2)"
+  },
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "Weeks 8–10: NVIDIA Isaac Platform (Chapter 1)",
+    "permalink": "/your-repo-name/docs/weeks-8-10-nvidia-isaac-platform-1"
+  },
+  "next": {
+    "title": "Weeks 8–10: NVIDIA Isaac Platform (Chapter 3)",
+    "permalink": "/your-repo-name/docs/weeks-8-10-nvidia-isaac-platform-3"
+  }
+}

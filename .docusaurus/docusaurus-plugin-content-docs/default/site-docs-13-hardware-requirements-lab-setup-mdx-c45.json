@@ -1,0 +1,28 @@
+{
+  "id": "hardware-requirements-lab-setup",
+  "title": "Hardware Requirements & Lab Setup",
+  "description": "\\n\\n## Learning Objectives\\n Understand the minimum and recommended hardware specifications for Physical AI development.\\n Learn how to set up a Digital Twin workstation for simulation and development.\\n Explore various robotic hardware kits Ubuntu 22.04 LTS, ROS 2, NVIDIA drivers, Docker, preferred IDE (VS Code).\\n Hardware\\n         CPU NVIDIA RTX 3070/4070 or higher (8GB+ VRAM)\\n         RAM 1TB NVMe SSD\\n         OS\\n         Jetson AGX Orin or Orin Nano (for edge deployment)\\n         SD card (128GB+)\\n         Power supply\\n     Sensors\\n         Unitree Go1/Go2 (bipedal/quadrupedal)\\n         Humanoid robot platform (e.g., open-source projects or commercial small humanoids)\\n\\n## Hands-on Labs\\n### Lab 13.1 Follow provided scripts to install NVIDIA drivers, Docker, and ROS 2 on Ubuntu.\\n Activity Fully functional Digital Twin workstation ready for Physical AI development.\\n\\n## Sim-to-Real Bridge\\n Concept: A well-configured Digital Twin workstation with powerful GPUs is essential for both high-fidelity simulation and for deploying and testing AI models on real hardware.\\n\\n## Quiz / Reflection Questions\\n1. What are the key components of a Digital Twin workstation and why are they important for Physical AI?\\n2. Compare and contrast the use cases for a Jetson Orin Developer Kit versus a high-end desktop GPU.\\n3. Discuss the advantages and disadvantages of using cloud computing for robotics simulation.\\n",
+  "source": "@site/docs/13-hardware-requirements-lab-setup.mdx",
+  "sourceDirName": ".",
+  "slug": "/hardware-requirements-lab-setup",
+  "permalink": "/your-repo-name/docs/hardware-requirements-lab-setup",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/docs/13-hardware-requirements-lab-setup.mdx",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 13,
+  "frontMatter": {
+    "sidebar_position": 13,
+    "title": "Hardware Requirements & Lab Setup"
+  },
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "Week 13: Conversational Robotics",
+    "permalink": "/your-repo-name/docs/week-13-conversational-robotics"
+  },
+  "next": {
+    "title": "Capstone Project: The Autonomous Humanoid",
+    "permalink": "/your-repo-name/docs/capstone-project-the-autonomous-humanoid"
+  }
+}

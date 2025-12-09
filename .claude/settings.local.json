@@ -1,0 +1,39 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npx docusaurus start --port 3001)",
+      "Bash(npx docusaurus build)",
+      "Bash(npx docusaurus start)",
+      "Bash(npx docusaurus start --port 3002)",
+      "Bash(npx docusaurus start --port 3003)",
+      "Bash(npx docusaurus start --port 3004)",
+      "Bash(dir)",
+      "Bash(del \"frontend/docs/*.mdx\")",
+      "Bash(ls frontend/docs/*.md)",
+      "Bash(dir frontend/docs)",
+      "Bash(mkdir frontend/docs/01-Introduction frontend/docs/Module-01-ROS2 frontend/docs/Module-02-Simulation frontend/docs/Module-03-Isaac-Sim frontend/docs/Module-04-VLA-Voice frontend/docs/Advanced-Topics)",
+      "Bash(move frontend/docs/01-intro-physical-ai.md frontend/docs/01-Introduction/)",
+      "Bash(mv frontend/docs/01-intro-physical-ai.md frontend/docs/01-Introduction/)",
+      "Bash(mv frontend/docs/02-ros2-fundamentals-1.md frontend/docs/03-ros2-fundamentals-2.md frontend/docs/04-ros2-fundamentals-3.md frontend/docs/Module-01-ROS2/)",
+      "Bash(mv frontend/docs/05-gazebo-simulation-1.md frontend/docs/06-gazebo-simulation-2.md frontend/docs/Module-02-Simulation/)",
+      "Bash(mv frontend/docs/07-isaac-sim-1.md frontend/docs/08-isaac-sim-2.md frontend/docs/09-isaac-sim-3.md frontend/docs/Module-03-Isaac-Sim/)",
+      "Bash(mv frontend/docs/10-vla-voice-action.md frontend/docs/11-vla-cognitive-planning.md frontend/docs/Module-04-VLA-Voice/)",
+      "Bash(mv frontend/docs/12-sim-to-real-transfer.md frontend/docs/13-hardware-lab-setup.md frontend/docs/14-capstone-autonomous-humanoid.md frontend/docs/Advanced-Topics/)",
+      "Bash(dir frontend/docs/01-Introduction/)",
+      "Bash(dir frontend/docs/Module-01-ROS2/)",
+      "Bash(dir frontend/docs/Module-02-Simulation/)",
+      "Bash(dir frontend/docs/Module-03-Isaac-Sim/)",
+      "Bash(dir frontend/docs/Module-04-VLA-Voice/)",
+      "Bash(dir frontend/docs/Advanced-Topics/)",
+      "Bash(npm install @splinetool/react-spline)",
+      "Bash(dir frontend/docs/01-Introduction)",
+      "Bash(dir frontendstatic)",
+      "Bash(dir frontend)",
+      "Bash(dir \"frontend\\static\")",
+      "Bash(dir \"frontend\\static\\img\")"
+    ],
+    "deny": [],
+    "ask": []
+  },
+  "outputStyle": "default"
+}

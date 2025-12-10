@@ -1,0 +1,262 @@
+/**
+ * CSS files with the .module.css suffix will be treated as CSS modules
+ * and scoped locally.
+ */
+
+.heroBanner {
+  padding: 4rem 0;
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(135deg, #0A0E2A 0%, #1A1E3A 100%);
+}
+
+@media screen and (max-width: 996px) {
+  .heroBanner {
+    padding: 2rem 1rem;
+  }
+}
+
+.heroContainer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+@media screen and (max-width: 996px) {
+  .heroContainer {
+    flex-direction: column;
+    text-align: center;
+  }
+}
+
+.heroText {
+  flex: 1;
+  max-width: 600px;
+}
+
+.heroImage {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.heroImagePlaceholder {
+  max-width: 100%;
+  height: auto;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0, 245, 255, 0.2);
+}
+
+.buttons {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+@media screen and (max-width: 996px) {
+  .buttons {
+    justify-content: center;
+  }
+}
+
+.glowing-button {
+  background: linear-gradient(45deg, #00F5FF, #0A8A9F);
+  border: none;
+  box-shadow: 0 0 20px rgba(0, 245, 255, 0.5);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.glowing-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 0 30px rgba(0, 245, 255, 0.7);
+}
+
+.glowing-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: 0.5s;
+}
+
+.glowing-button:hover::before {
+  left: 100%;
+}
+
+.techStackStrip {
+  background-color: #080c18;
+  padding: 1rem 0;
+  border-top: 1px solid rgba(0, 245, 255, 0.2);
+  border-bottom: 1px solid rgba(0, 245, 255, 0.2);
+}
+
+.techStackContent {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+
+@media screen and (max-width: 768px) {
+  .techStackContent {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+}
+
+.techStackText {
+  color: #00F5FF;
+  font-weight: 600;
+  margin: 0;
+  font-size: 1.1rem;
+}
+
+.techStackItems {
+  display: flex;
+  gap: 1.5rem;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.techItem {
+  color: #B0B0B0;
+  font-size: 0.95rem;
+  background: rgba(0, 245, 255, 0.1);
+  padding: 0.3rem 0.8rem;
+  border-radius: 20px;
+  border: 1px solid rgba(0, 245, 255, 0.2);
+}
+
+.valuePropsSection {
+  padding: 4rem 0;
+  background: linear-gradient(135deg, #080c18 0%, #0A0E2A 100%);
+}
+
+.sectionTitle {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.sectionTitle .gradient-text {
+  font-size: 2.5rem;
+  font-weight: 700;
+}
+
+.valuePropsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.glassCard {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  padding: 2rem;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.glassCard::before {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  background: linear-gradient(45deg, #00F5FF, #0A8A9F, #00F5FF, #0A8A9F);
+  z-index: -1;
+  border-radius: 18px;
+  animation: borderAnimation 3s linear infinite;
+  background-size: 400% 400%;
+}
+
+@keyframes borderAnimation {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.glassCard:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 20px 30px rgba(0, 0, 0, 0.3);
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.glassCardHeader {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.icon {
+  font-size: 2rem;
+}
+
+.glassCard h3 {
+  color: #00F5FF;
+  margin-bottom: 0.5rem;
+  font-size: 1.5rem;
+}
+
+.glassCardBody p {
+  color: #B0B0B0;
+  margin-bottom: 0;
+  line-height: 1.6;
+}
+
+.weekGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+
+.weekGrid .card {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.weekGrid .card__header {
+  border-bottom: 1px solid rgba(0, 245, 255, 0.2);
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+}
+
+.weekGrid .card__body {
+  flex-grow: 1;
+}
+
+.weekGrid .card h3 {
+  color: #00F5FF;
+  margin-bottom: 0.5rem;
+}
+
+.weekGrid .card p {
+  color: #B0B0B0;
+  margin-bottom: 0;
+}

@@ -7,3 +7,4 @@ qdrant-client
 google-genai
 python-multipart
 google-generativeai
+cohera

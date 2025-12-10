@@ -15,8 +15,7 @@ export default function ChatBot() {
   const [nextMessageId, setNextMessageId] = useState(2);
   
   // 🔗 RENDER DEPLOYMENT FIX: REPLACE THIS WITH YOUR PUBLIC RENDER URL
-  const PUBLIC_API_URL = 'YOUR_RENDER_URL_HERE/chat';
-  // Example: 'https://physical-ai-backend-j8q9.onrender.com/chat'
+  const PUBLIC_API_URL = 'https://physical-ai-backend-j8q9.onrender.com/chat';
 
   // Auto-scroll to bottom
   const messagesEndRef = useRef(null);

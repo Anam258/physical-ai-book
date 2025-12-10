@@ -1,7 +1,7 @@
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
-from agent import run_agent  # Yeh tumhara banaya hua agent hai
+from agent import run_agent  
 
 # Initialize App
 app = FastAPI(title="Physical AI Tutor API")

@@ -1,4 +1,5 @@
-![Hero Diagram: Isaac ROS & Hardware Accelerated VSLAM](../../static/img/isaac-brain3.jpg)
+
+# Isaac Sim 2: Isaac ROS & Hardware Accelerated VSLAM
 
 :::info Learning Objectives
 * Understand Isaac ROS and its role in robotics applications
@@ -7,7 +8,8 @@
 * Optimize SLAM performance using GPU acceleration
 :::
 
-# Isaac Sim 2: Isaac ROS & Hardware Accelerated VSLAM
+![Hero Diagram: Isaac ROS & Hardware Accelerated VSLAM](../../static/img/isaac-brain3.jpg)
+
 
 Isaac ROS is a collection of hardware-accelerated perception and navigation packages that bridge the gap between NVIDIA's GPU computing capabilities and ROS 2 robotics middleware. It enables high-performance computer vision and spatial perception for autonomous robots, particularly important for humanoid robots that require real-time scene understanding.
 

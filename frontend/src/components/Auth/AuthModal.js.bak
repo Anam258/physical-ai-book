@@ -1,0 +1,423 @@
+import React, { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { validateSignUpStep1, validateSignUpStep2, validateSignIn, areAllValidationsPassed } from './utils/validationUtils';
+import './AuthModal.css';
+
+const AuthModal = ({ isOpen, onClose }) => {
+  const [isSignIn, setIsSignIn] = useState(true);
+  const [signUpStep, setSignUpStep] = useState(1); // For multi-step sign-up (1: credentials, 2: personalization)
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    password: '',
+    softwareBackground: '',
+    hardwareBackground: ''
+  });
+  const [errors, setErrors] = useState({});
+  const [showToast, setShowToast] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+
+  // Reset form when modal closes
+  useEffect(() => {
+    if (!isOpen) {
+      // Clear form data when modal closes
+      setFormData({
+        name: '',
+        email: '',
+        password: '',
+        softwareBackground: '',
+        hardwareBackground: ''
+      });
+      setErrors({});
+      setSignUpStep(1); // Reset to step 1 when modal closes
+    }
+  }, [isOpen]);
+
+  // Handle escape key press to close modal
+  useEffect(() => {
+    const handleEscKey = (event) => {
+      if (event.key === 'Escape' && isOpen) {
+        onClose();
+      }
+    };
+
+    if (isOpen) {
+      document.addEventListener('keydown', handleEscKey);
+    }
+
+    return () => {
+      document.removeEventListener('keydown', handleEscKey);
+    };
+  }, [isOpen, onClose]);
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }));
+
+    // Clear error when user starts typing
+    if (errors[name]) {
+      setErrors(prev => ({
+        ...prev,
+        [name]: ''
+      }));
+    }
+  };
+
+  const validateForm = () => {
+    if (isSignIn) {
+      const validationResults = validateSignIn(formData);
+      setErrors(validationResults);
+      return areAllValidationsPassed(validationResults);
+    } else if (signUpStep === 1) {
+      const validationResults = validateSignUpStep1(formData);
+      setErrors(validationResults);
+      return areAllValidationsPassed(validationResults);
+    } else { // signUpStep === 2
+      const validationResults = validateSignUpStep2(formData);
+      setErrors(validationResults);
+      return areAllValidationsPassed(validationResults);
+    }
+  };
+
+  // Handle moving to the next step in the sign-up flow
+  const handleNextStep = () => {
+    if (signUpStep === 1) {
+      const validationResults = validateSignUpStep1(formData);
+      setErrors(validationResults);
+
+      if (areAllValidationsPassed(validationResults)) {
+        setSignUpStep(2);
+      }
+    }
+  };
+
+  // Handle going back to the previous step in the sign-up flow
+  const handlePrevStep = () => {
+    if (signUpStep === 2) {
+      setSignUpStep(1);
+    }
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    if (!isSignIn && signUpStep === 1) {
+      // For sign-up step 1, move to step 2 instead of submitting
+      handleNextStep();
+      return;
+    }
+
+    // For sign-in or sign-up step 2, validate and submit
+    if (!validateForm()) {
+      return;
+    }
+
+    setIsLoading(true);
+
+    try {
+      if (isSignIn) {
+        // Sign-in logic
+        const userData = {
+          id: Date.now().toString(), // Generate temporary ID
+          name: formData.name || 'User', // Will be updated after personalization
+          email: formData.email,
+          softwareBackground: formData.softwareBackground || 'None',
+          hardwareBackground: formData.hardwareBackground || 'None',
+          createdAt: new Date().toISOString(),
+          lastLoginAt: new Date().toISOString()
+        };
+
+        // Store user profile using the storage utility
+        localStorage.setItem('@auth/user', JSON.stringify(userData));
+      } else if (signUpStep === 2) {
+        // Complete sign-up with both credential and personalization data
+        const userData = {
+          id: Date.now().toString(), // Generate temporary ID
+          name: formData.name,
+          email: formData.email,
+          password: formData.password, // In a real app, this wouldn't be stored client-side
+          softwareBackground: formData.softwareBackground,
+          hardwareBackground: formData.hardwareBackground,
+          createdAt: new Date().toISOString(),
+          lastLoginAt: new Date().toISOString()
+        };
+
+        // Store user profile using the storage utility
+        localStorage.setItem('@auth/user', JSON.stringify(userData));
+      }
+
+      // Close modal after successful authentication
+      onClose();
+    } catch (error) {
+      console.error('Authentication error:', error);
+      // In a real app, you would show an error message to the user
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleForgotPassword = (e) => {
+    e.preventDefault();
+    setShowToast(true);
+    setTimeout(() => setShowToast(false), 3000); // Hide toast after 3 seconds
+  };
+
+  if (!isOpen) return null;
+
+  return (
+    <AnimatePresence>
+      <>
+        <motion.div
+          className="auth-modal-overlay"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.2 }}
+          onClick={onClose}
+          aria-modal="true"
+          role="dialog"
+        >
+          <motion.div
+            className="auth-modal"
+            initial={{ scale: 0.8, opacity: 0, y: 20 }}
+            animate={{ scale: 1, opacity: 1, y: 0 }}
+            exit={{ scale: 0.8, opacity: 0, y: 20 }}
+            transition={{ type: "spring", damping: 25, stiffness: 300, duration: 0.3 }}
+            onClick={(e) => e.stopPropagation()}
+            role="document"
+            aria-label={isSignIn ? "Sign In" : signUpStep === 1 ? "Sign Up - Step 1" : "Sign Up - Step 2"}
+            tabIndex="-1"
+          >
+            <div className="auth-modal-header">
+              <div className="auth-tabs" role="tablist">
+                <button
+                  className={`auth-tab ${isSignIn ? 'active' : ''}`}
+                  onClick={() => {
+                    setIsSignIn(true);
+                    setSignUpStep(1); // Reset to step 1 when switching to sign in
+                  }}
+                  role="tab"
+                  aria-selected={isSignIn}
+                  aria-controls={isSignIn ? "signin-panel" : "signup-panel"}
+                  id="signin-tab"
+                >
+                  Sign In
+                </button>
+                <button
+                  className={`auth-tab ${!isSignIn ? 'active' : ''}`}
+                  onClick={() => {
+                    setIsSignIn(false);
+                    setSignUpStep(1); // Reset to step 1 when switching to sign up
+                    // Clear form data when switching to sign up to avoid data from sign in
+                    if (isSignIn) {
+                      setFormData({
+                        name: '',
+                        email: '',
+                        password: '',
+                        softwareBackground: '',
+                        hardwareBackground: ''
+                      });
+                      setErrors({});
+                    }
+                  }}
+                  role="tab"
+                  aria-selected={!isSignIn}
+                  aria-controls={!isSignIn ? "signup-panel" : "signin-panel"}
+                  id="signup-tab"
+                >
+                  Sign Up
+                </button>
+              </div>
+              <button className="auth-close-btn" onClick={onClose}>
+                ×
+              </button>
+            </div>
+
+            <form className="auth-form" onSubmit={handleSubmit} role="form">
+              <div id={isSignIn ? "signin-panel" : "signup-panel"} role="tabpanel" aria-labelledby={isSignIn ? "signin-tab" : "signup-tab"}>
+              {isSignIn ? (
+                <>
+                  <div className="auth-input-group">
+                    <label htmlFor="email">Email</label>
+                    <input
+                      type="email"
+                      id="email"
+                      name="email"
+                      value={formData.email}
+                      onChange={handleInputChange}
+                      className={errors.email ? 'error' : ''}
+                      required
+                    />
+                    {errors.email && <span className="error-message">{errors.email}</span>}
+                  </div>
+
+                  <div className="auth-input-group">
+                    <label htmlFor="password">Password</label>
+                    <input
+                      type="password"
+                      id="password"
+                      name="password"
+                      value={formData.password}
+                      onChange={handleInputChange}
+                      className={errors.password ? 'error' : ''}
+                      required
+                    />
+                    {errors.password && <span className="error-message">{errors.password}</span>}
+                  </div>
+
+                  <button type="submit" className="auth-submit-btn" disabled={isLoading}>
+                    {isLoading ? 'Signing In...' : 'Sign In'}
+                  </button>
+                </>
+              ) : signUpStep === 1 ? (
+                // Step 1: Credentials
+                <>
+                  <h3 style={{ color: 'white', marginBottom: '20px', textAlign: 'center' }}>Create Account</h3>
+                  <div className="auth-input-group">
+                    <label htmlFor="name">Full Name</label>
+                    <input
+                      type="text"
+                      id="name"
+                      name="name"
+                      value={formData.name}
+                      onChange={handleInputChange}
+                      className={errors.name ? 'error' : ''}
+                      placeholder="Enter your full name"
+                      required
+                    />
+                    {errors.name && <span className="error-message">{errors.name}</span>}
+                  </div>
+
+                  <div className="auth-input-group">
+                    <label htmlFor="email">Email</label>
+                    <input
+                      type="email"
+                      id="email"
+                      name="email"
+                      value={formData.email}
+                      onChange={handleInputChange}
+                      className={errors.email ? 'error' : ''}
+                      placeholder="Enter your email"
+                      required
+                    />
+                    {errors.email && <span className="error-message">{errors.email}</span>}
+                  </div>
+
+                  <div className="auth-input-group">
+                    <label htmlFor="password">Password</label>
+                    <input
+                      type="password"
+                      id="password"
+                      name="password"
+                      value={formData.password}
+                      onChange={handleInputChange}
+                      className={errors.password ? 'error' : ''}
+                      placeholder="Create a password"
+                      required
+                    />
+                    {errors.password && <span className="error-message">{errors.password}</span>}
+                  </div>
+
+                  <div style={{ display: 'flex', gap: '10px', marginTop: '20px' }}>
+                    <span style={{ color: 'rgba(255, 255, 255, 0.6)', fontSize: '14px' }}>Step 1 of 2</span>
+                    <button
+                      type="button"
+                      className="auth-submit-btn"
+                      onClick={handleNextStep}
+                      disabled={isLoading}
+                    >
+                      {isLoading ? 'Processing...' : 'Next'}
+                    </button>
+                  </div>
+                </>
+              ) : (
+                // Step 2: Personalization
+                <>
+                  <h3 style={{ color: 'white', marginBottom: '20px', textAlign: 'center' }}>Tell us about yourself</h3>
+                  <div className="auth-input-group">
+                    <label htmlFor="softwareBackground">Software Background</label>
+                    <select
+                      id="softwareBackground"
+                      name="softwareBackground"
+                      value={formData.softwareBackground}
+                      onChange={handleInputChange}
+                      className={errors.softwareBackground ? 'error' : ''}
+                      required
+                    >
+                      <option value="">Select your software background</option>
+                      <option value="Python">Python</option>
+                      <option value="JS">JavaScript</option>
+                      <option value="C++">C++</option>
+                      <option value="None">None</option>
+                    </select>
+                    {errors.softwareBackground && <span className="error-message">{errors.softwareBackground}</span>}
+                  </div>
+
+                  <div className="auth-input-group">
+                    <label htmlFor="hardwareBackground">Hardware Background</label>
+                    <select
+                      id="hardwareBackground"
+                      name="hardwareBackground"
+                      value={formData.hardwareBackground}
+                      onChange={handleInputChange}
+                      className={errors.hardwareBackground ? 'error' : ''}
+                      required
+                    >
+                      <option value="">Select your hardware background</option>
+                      <option value="Arduino">Arduino</option>
+                      <option value="ROS">ROS</option>
+                      <option value="Isaac Sim">Isaac Sim</option>
+                      <option value="None">None</option>
+                    </select>
+                    {errors.hardwareBackground && <span className="error-message">{errors.hardwareBackground}</span>}
+                  </div>
+
+                  <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '20px' }}>
+                    <button
+                      type="button"
+                      className="auth-forgot-password"
+                      onClick={handlePrevStep}
+                      style={{ background: 'none', border: 'none', color: 'white', cursor: 'pointer', fontSize: '14px' }}
+                    >
+                      ← Back
+                    </button>
+                    <span style={{ color: 'rgba(255, 255, 255, 0.6)', fontSize: '14px' }}>Step 2 of 2</span>
+                    <button type="submit" className="auth-submit-btn" disabled={isLoading}>
+                      {isLoading ? 'Creating Account...' : 'Complete Sign Up'}
+                    </button>
+                  </div>
+                </>
+              )}
+              </div> {/* Close the tabpanel div */}
+
+            </form>
+
+            {isSignIn && (
+              <div className="auth-footer">
+                <button type="button" className="auth-forgot-password" onClick={handleForgotPassword}>
+                  Forgot Password?
+                </button>
+              </div>
+            )}
+          </motion.div>
+        </motion.div>
+
+        {showToast && (
+          <motion.div
+            className="toast"
+            initial={{ opacity: 0, y: 50 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 50 }}
+          >
+            Please contact admin
+          </motion.div>
+        )}
+      </>
+    </AnimatePresence>
+  );
+};
+
+export default AuthModal;

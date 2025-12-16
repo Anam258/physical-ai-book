@@ -1,11 +1,14 @@
-![Hero Diagram: Introduction to Physical AI](../../static/img/intro-hero.png)
+
+# Introduction to Physical AI
 
 :::info Learning Objectives
 * Understand the fundamental differences between digital and physical AI systems
 * Explore the applications and challenges of embodied intelligence
 :::
 
-# Introduction to Physical AI
+
+![Hero Diagram: Introduction to Physical AI](../../static/img/intro-hero.png)
+
 
 Physical AI represents a paradigm shift from traditional digital artificial intelligence to **embodied intelligence** that interacts with the real world. Unlike digital AI systems that operate purely in virtual environments, *Physical AI* encompasses robots and intelligent systems that perceive, reason, and act in three-dimensional space.
 

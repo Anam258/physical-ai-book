@@ -5,7 +5,115 @@
   width: 100%;
 }
 
-.featureSvg {
-  height: 200px;
-  width: 200px;
+/* Icon wrapper styling with neon gradient background */
+.iconWrapper {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #00f7ff 0%, #0066cc 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1.5rem;
+  box-shadow: 0 4px 20px rgba(0, 247, 255, 0.4);
+}
+
+/* Glassmorphic card styling with enhanced gradient and shadow */
+.glassCard {
+  background: linear-gradient(180deg, rgba(30, 41, 59, 0.8) 0%, rgba(15, 23, 42, 0.9) 100%);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(0, 247, 255, 0.2);
+  border-radius: 12px;
+  padding: 1.5rem;
+  min-height: 180px;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+  will-change: transform;
+  contain: layout style paint;
+  transform: translateZ(0);
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+              box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Fallback for browsers without backdrop-filter support */
+@supports not (backdrop-filter: blur(10px)) {
+  .glassCard {
+    background: linear-gradient(180deg, rgba(30, 41, 59, 0.9) 0%, rgba(15, 23, 42, 1) 100%);
+  }
+}
+
+/* Hover effect (desktop only) with enhanced glow */
+@media (hover: hover) and (pointer: fine) {
+  .glassCard:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 40px 0 rgba(0, 247, 255, 0.5);
+  }
+}
+
+/* Typography enhancements with white bold titles and light grey descriptions */
+.glassCard h3 {
+  color: #ffffff;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  letter-spacing: 0.02em;
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  display: inline-block;
+}
+
+.glassCard p {
+  color: #cbd5e1;
+  font-weight: 400;
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* Responsive adjustments */
+@media screen and (max-width: 996px) {
+  .glassCard {
+    padding: 1.5rem;
+  }
+
+  .iconWrapper {
+    width: 50px;
+    height: 50px;
+  }
+
+  /* On tablets, still show 2 columns since we're using col--6 */
+  .features .col--6 {
+    flex: 0 0 50%;
+    max-width: 50%;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .glassCard {
+    padding: 1.25rem;
+  }
+
+  .iconWrapper {
+    width: 45px;
+    height: 45px;
+    margin: 0 auto 1rem;
+  }
+
+  /* On mobile, show 1 column */
+  .features .col--6 {
+    flex: 0 0 100%;
+    max-width: 100%;
+  }
+}
+
+/* Enhanced contrast mode */
+@media (prefers-contrast: high) {
+  .glassCard h3 {
+    color: #FFFFFF;
+  }
+
+  .glassCard p {
+    color: #FFFFFF;
+  }
 }

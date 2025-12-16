@@ -4,7 +4,6 @@ import styles from './styles.module.css';
 const SelectionTooltip = ({
   show,
   position,
-  onAskAI,
   themeColor = '#00f7ff'
 }) => {
   if (!show) {
@@ -19,9 +18,8 @@ const SelectionTooltip = ({
         top: `${position.y}px`,
         '--theme-color': themeColor
       }}
-      onClick={onAskAI}
     >
-      Ask AI
+      🇵🇰 اردو میں پڑھیں
     </div>
   );
 };

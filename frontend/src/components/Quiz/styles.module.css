@@ -1,0 +1,293 @@
+/* Dark Glassmorphism Quiz Styles */
+.quizContainer {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.startCard, .questionCard, .errorCard, .fallbackCard {
+  background: rgba(15, 23, 42, 0.8); /* Dark navy background */
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(0, 247, 255, 0.2); /* Cyan border */
+  border-radius: 16px;
+  padding: 30px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.37);
+  color: white;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+.questionNumber {
+  color: #00f7ff; /* Cyan color */
+  font-size: 16px;
+  font-weight: 600;
+  margin: 0 0 15px 0;
+  text-align: center;
+}
+
+.questionText {
+  font-size: 20px;
+  font-weight: 600;
+  margin: 0 0 25px 0;
+  line-height: 1.5;
+  color: #ffffff;
+}
+
+.optionsContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.optionButton {
+  background: rgba(30, 41, 59, 0.7); /* Darker glass background */
+  border: 1px solid rgba(0, 247, 255, 0.2);
+  border-radius: 12px;
+  padding: 16px 20px;
+  color: #ffffff;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-align: left;
+  position: relative;
+  overflow: hidden;
+}
+
+.optionButton:hover:not(:disabled) {
+  background: rgba(56, 70, 97, 0.8);
+  border-color: rgba(0, 247, 255, 0.4);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(0, 247, 255, 0.2);
+}
+
+.optionButton:disabled {
+  cursor: not-allowed;
+  opacity: 0.8;
+}
+
+.correctOption {
+  background: rgba(16, 185, 129, 0.3) !important; /* Green glass */
+  border-color: #10b981 !important;
+  color: #ffffff;
+  box-shadow: 0 0 20px rgba(16, 185, 129, 0.4) !important;
+}
+
+.incorrectOption {
+  background: rgba(239, 68, 68, 0.3) !important; /* Red glass */
+  border-color: #ef4444 !important;
+  color: #ffffff;
+  box-shadow: 0 0 20px rgba(239, 68, 68, 0.4) !important;
+}
+
+.feedbackContainer {
+  margin-top: 20px;
+  padding-top: 20px;
+  border-top: 1px solid rgba(0, 247, 255, 0.2);
+}
+
+.successMessage {
+  text-align: center;
+  margin-bottom: 15px;
+}
+
+.confetti {
+  font-size: 24px;
+  animation: bounce 0.6s ease;
+}
+
+.errorMessage {
+  text-align: center;
+  color: #ef4444;
+  margin-bottom: 15px;
+}
+
+.explanation {
+  background: rgba(30, 41, 59, 0.5);
+  border: 1px solid rgba(0, 247, 255, 0.2);
+  border-radius: 12px;
+  padding: 15px;
+  margin: 15px 0;
+  color: #cbd5e1;
+  line-height: 1.6;
+}
+
+.showExplanationButton {
+  background: rgba(0, 247, 255, 0.2);
+  border: 1px solid rgba(0, 247, 255, 0.4);
+  border-radius: 8px;
+  padding: 10px 16px;
+  color: #00f7ff;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin: 10px 0;
+  width: 100%;
+}
+
+.showExplanationButton:hover {
+  background: rgba(0, 247, 255, 0.3);
+  transform: translateY(-2px);
+}
+
+.nextButton {
+  background: rgba(0, 247, 255, 0.2);
+  border: 1px solid rgba(0, 247, 255, 0.4);
+  border-radius: 8px;
+  padding: 12px 24px;
+  color: #00f7ff;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 15px;
+  width: 100%;
+}
+
+.nextButton:hover {
+  background: rgba(0, 247, 255, 0.3);
+  transform: translateY(-2px);
+}
+
+.completionMessage {
+  text-align: center;
+  margin-top: 20px;
+  padding-top: 20px;
+  border-top: 1px solid rgba(0, 247, 255, 0.2);
+}
+
+.completionMessage h3 {
+  color: #00f7ff;
+  margin-bottom: 10px;
+}
+
+.completionMessage p {
+  color: #cbd5e1;
+  margin-bottom: 15px;
+}
+
+.startTitle {
+  color: #00f7ff;
+  font-size: 24px;
+  font-weight: 600;
+  margin: 0 0 15px 0;
+  text-align: center;
+}
+
+.startDescription {
+  color: #cbd5e1;
+  font-size: 16px;
+  margin: 0 0 25px 0;
+  text-align: center;
+  line-height: 1.6;
+}
+
+.startButton {
+  background: linear-gradient(135deg, #00f7ff, #0066cc);
+  border: none;
+  border-radius: 8px;
+  padding: 14px 28px;
+  color: white;
+  font-size: 18px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  width: 100%;
+  margin: 10px 0;
+}
+
+.startButton:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(0, 247, 255, 0.4);
+}
+
+.startButton:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.retryButton {
+  background: linear-gradient(135deg, #00f7ff, #0066cc);
+  border: none;
+  border-radius: 8px;
+  padding: 12px 24px;
+  color: white;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 15px;
+}
+
+.retryButton:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(0, 247, 255, 0.4);
+}
+
+.restartButton {
+  background: linear-gradient(135deg, #00f7ff, #0066cc);
+  border: none;
+  border-radius: 8px;
+  padding: 12px 24px;
+  color: white;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 10px;
+}
+
+.restartButton:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(0, 247, 255, 0.4);
+}
+
+.noQuestions, .fallbackMessage {
+  text-align: center;
+  color: #cbd5e1;
+  font-style: italic;
+  padding: 20px;
+}
+
+@keyframes bounce {
+  0%, 20%, 50%, 80%, 100% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(-10px);
+  }
+  60% {
+    transform: translateY(-5px);
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .quizContainer {
+    padding: 10px;
+  }
+
+  .startCard, .questionCard, .errorCard {
+    padding: 20px;
+  }
+
+  .questionText {
+    font-size: 18px;
+  }
+
+  .optionButton {
+    padding: 14px 16px;
+    font-size: 15px;
+  }
+
+  .startTitle {
+    font-size: 20px;
+  }
+
+  .startButton {
+    font-size: 16px;
+    padding: 12px 24px;
+  }
+}

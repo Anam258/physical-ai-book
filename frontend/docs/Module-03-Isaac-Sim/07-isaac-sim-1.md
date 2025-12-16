@@ -1,4 +1,6 @@
-![Hero Diagram: NVIDIA Isaac Sim & Synthetic Data](../../static/img/isaac-brain2.jpg)
+
+# Isaac Sim 1: NVIDIA Isaac Sim & Synthetic Data
+
 
 :::info Learning Objectives
 * Understand NVIDIA Isaac Sim architecture and capabilities
@@ -6,8 +8,7 @@
 * Configure realistic lighting and materials for photorealistic rendering
 * Implement domain randomization techniques for robust AI models
 :::
-
-# Isaac Sim 1: NVIDIA Isaac Sim & Synthetic Data
+![Hero Diagram: NVIDIA Isaac Sim & Synthetic Data](../../static/img/isaac-brain2.jpg)
 
 NVIDIA Isaac Sim is a comprehensive robotics simulation environment built on the Omniverse platform. It provides high-fidelity physics simulation, photorealistic rendering, and synthetic data generation capabilities specifically designed for robotics applications and AI development.
 

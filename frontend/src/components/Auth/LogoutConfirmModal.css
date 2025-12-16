@@ -1,0 +1,130 @@
+/* Full-screen overlay with backdrop blur */
+.logout-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2147483647; /* Max z-index for top layer */
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+}
+
+/* Glassmorphism modal container */
+.logout-modal-container {
+  background: rgba(30, 41, 59, 0.9); /* Navy blue #1e293b with 90% opacity */
+  border-radius: 16px;
+  padding: 2rem;
+  max-width: 400px;
+  width: 90%;
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.5);
+  backdrop-filter: blur(12px); /* CRITICAL: 12px blur per spec */
+  -webkit-backdrop-filter: blur(12px);
+  position: relative;
+}
+
+/* Neon border using pseudo-element */
+.logout-modal-container::before {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  background: linear-gradient(135deg, #06b6d4, #ec4899); /* Cyan to pink neon gradient */
+  border-radius: 16px;
+  z-index: -1;
+}
+
+/* Modal text styling */
+.logout-modal-text {
+  color: #f1f5f9; /* Light text color */
+  font-size: 18px;
+  font-weight: 500;
+  text-align: center;
+  margin: 0 0 1.5rem 0;
+  line-height: 1.5;
+}
+
+/* Button container with flexbox */
+.logout-modal-buttons {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Base button styles */
+.logout-cancel-btn,
+.logout-confirm-btn {
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  flex: 1;
+  max-width: 150px;
+}
+
+/* Cancel button - grey background */
+.logout-cancel-btn {
+  background: #475569; /* Slate-600 grey */
+  color: #ffffff;
+}
+
+.logout-cancel-btn:hover {
+  background: #64748b; /* Lighter grey on hover */
+}
+
+/* Logout button - red/pink gradient */
+.logout-confirm-btn {
+  background: linear-gradient(135deg, #ef4444, #ec4899); /* Red to pink gradient */
+  color: #ffffff;
+}
+
+.logout-confirm-btn:hover {
+  background: linear-gradient(135deg, #dc2626, #db2777); /* Darker gradient on hover */
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
+}
+
+/* Responsive styles for mobile */
+@media (max-width: 480px) {
+  .logout-modal-container {
+    width: 95%;
+    padding: 1.5rem;
+  }
+
+  .logout-modal-text {
+    font-size: 16px;
+  }
+
+  .logout-modal-buttons {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .logout-cancel-btn,
+  .logout-confirm-btn {
+    max-width: 100%;
+    width: 100%;
+  }
+}
+
+/* Graceful degradation for browsers without backdrop-filter support */
+@supports not (backdrop-filter: blur(12px)) {
+  .logout-modal-container {
+    background: rgba(30, 41, 59, 0.95); /* More opaque background as fallback */
+  }
+
+  .logout-modal-overlay {
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+}

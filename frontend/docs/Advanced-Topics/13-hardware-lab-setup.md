@@ -1,4 +1,5 @@
-![Hero Diagram: Hardware Lab Setup](../../static/img/hardware-lab.jpg)
+
+# Hardware Lab Setup
 
 :::info Learning Objectives
 * Design a comprehensive humanoid robotics laboratory setup
@@ -6,8 +7,7 @@
 * Integrate multiple robotic platforms and simulation environments
 * Establish networking and computing infrastructure for robotics research
 :::
-
-# Hardware Lab Setup
+![Hero Diagram: Hardware Lab Setup](../../static/img/hardware-lab.jpg)
 
 A well-designed humanoid robotics laboratory requires careful planning of physical infrastructure, safety systems, computing resources, and operational protocols. This setup must support both simulation and real-robot development while ensuring researcher safety and equipment protection.
 

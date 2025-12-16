@@ -1,8 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import styles from './styles.module.css';
-import ChatWindow from './ChatWindow'; // Assuming Claude created this subcomponent
-import SelectionTooltip from './SelectionTooltip'; // Assuming Claude created this subcomponent
+import ChatWindow from './ChatWindow'; // Assuming this subcomponent exists
 
 export default function ChatBot() {
   const [isOpen, setIsOpen] = useState(false);
@@ -10,12 +9,60 @@ export default function ChatBot() {
     { id: 1, sender: 'ai', content: 'Hi! I am your Physical AI Tutor. Ask me anything about the handbook! 🤖' }
   ]);
   const [isLoading, setIsLoading] = useState(false);
-  const [selectedText, setSelectedText] = useState('');
-  const [tooltip, setTooltip] = useState({ show: false, x: 0, y: 0 });
   const [nextMessageId, setNextMessageId] = useState(2);
-  
-  // 🔗 RENDER DEPLOYMENT FIX: REPLACE THIS WITH YOUR PUBLIC RENDER URL
-  const PUBLIC_API_URL = 'https://physical-ai-backend-j8q9.onrender.com/chat';
+
+  const API_URL = 'http://localhost:8000/chat';
+
+  // State for drag functionality
+  const [position, setPosition] = useState(null); // Initialize to null to use CSS default position
+  const [isDragging, setIsDragging] = useState(false);
+  const [dragOffset, setDragOffset] = useState({ x: 0, y: 0 });
+  const buttonRef = useRef(null);
+
+  // Handle mouse down for dragging
+  const handleMouseDown = (e) => {
+    if (!buttonRef.current) return;
+
+    const rect = buttonRef.current.getBoundingClientRect();
+    setIsDragging(true);
+    setDragOffset({
+      x: e.clientX - rect.left,
+      y: e.clientY - rect.top
+    });
+    e.preventDefault();
+  };
+
+  // Handle mouse move for dragging
+  const handleMouseMove = (e) => {
+    if (!isDragging) return;
+
+    const newX = e.clientX - dragOffset.x;
+    const newY = e.clientY - dragOffset.y;
+
+    // Constrain to viewport
+    const clampedX = Math.max(0, Math.min(window.innerWidth - (buttonRef.current?.offsetWidth || 60), newX));
+    const clampedY = Math.max(0, Math.min(window.innerHeight - (buttonRef.current?.offsetHeight || 60), newY));
+
+    setPosition({ x: clampedX, y: clampedY });
+  };
+
+  // Handle mouse up to stop dragging
+  const handleMouseUp = () => {
+    setIsDragging(false);
+  };
+
+  // Add event listeners for dragging
+  useEffect(() => {
+    if (isDragging) {
+      window.addEventListener('mousemove', handleMouseMove);
+      window.addEventListener('mouseup', handleMouseUp);
+
+      return () => {
+        window.removeEventListener('mousemove', handleMouseMove);
+        window.removeEventListener('mouseup', handleMouseUp);
+      };
+    }
+  }, [isDragging, dragOffset]);
 
   // Auto-scroll to bottom
   const messagesEndRef = useRef(null);
@@ -24,68 +71,47 @@ export default function ChatBot() {
   };
   useEffect(scrollToBottom, [messages, isLoading]); // Scroll on new messages or loading state
 
-  // Handle Text Selection (Tooltip Logic)
+  // Listen for 'open-chatbot' custom event to open chatbot with selected text
   useEffect(() => {
-    const handleSelection = () => {
-      const selection = window.getSelection();
-      const text = selection.toString().trim();
-
-      if (text.length > 5) {
-        const range = selection.getRangeAt(0);
-        const rect = range.getBoundingClientRect();
-        setTooltip({
-          show: true,
-          x: rect.left + rect.width / 2,
-          y: rect.top - 10
-        });
-        setSelectedText(text);
-      } else {
-        setTooltip({ show: false, x: 0, y: 0 });
-        setSelectedText('');
+    const handleOpenChatbot = (event) => {
+      setIsOpen(true);
+      // Note: We can't directly set the input value here since ChatWindow handles input
+      // Instead, we'll send the message directly or pass it as a prop
+      // For now, we'll just open the chatbot and the ChatWindow component will handle the message
+      if (event.detail) {
+        // Send the selected text to the chat
+        handleSend(`Explain this context: "${event.detail}"`);
       }
     };
 
-    const hideTooltip = () => {
-      setTooltip({ show: false, x: 0, y: 0 });
-    };
-
-    document.addEventListener('mouseup', handleSelection);
-    document.addEventListener('mousedown', hideTooltip);
+    window.addEventListener('open-chatbot', handleOpenChatbot);
 
     return () => {
-      document.removeEventListener('mouseup', handleSelection);
-      document.removeEventListener('mousedown', hideTooltip);
+      window.removeEventListener('open-chatbot', handleOpenChatbot);
     };
   }, []);
 
-  // 🚀 CORE FIX: Logic to send message, consuming selected text as context
+  // Text selection logic removed as per requirements
+  // Only the UrduTranslation component handles text selection now
+
+  // 🚀 CORE FIX: Logic to send message
   const handleSend = async (message) => {
-    if (!message.trim() && !selectedText) return;
+    if (!message.trim()) return;
 
-    // 1. Construct the Final Query for the Backend (422 FIX)
-    const context = selectedText;
-    const finalQuery = context
-      ? `Context: "${context}"\nQuestion: ${message.trim() || "Explain this."}`
-      : message;
+    // Prepare Display Message (What user sees in the chat window)
+    const displayMessage = message;
 
-    // 2. Prepare Display Message (What user sees in the chat window)
-    const displayMessage = context 
-      ? `(Selected: "${context.substring(0, 30)}...") ${message.trim() || 'Explain this section.'}` 
-      : message;
-    
     // UI Updates
     const userMessage = { id: nextMessageId, sender: 'user', content: displayMessage };
     setMessages(prev => [...prev, userMessage]);
     setNextMessageId(prev => prev + 1);
-    setIsLoading(true);
-    setSelectedText(''); 
+    setIsLoading(true); 
 
     try {
-      // 3. Fetch API: Use Public URL
-      const response = await fetch(PUBLIC_API_URL, {
+      const response = await fetch(API_URL, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ question: finalQuery }), // Sends correct 'question' key
+        body: JSON.stringify({ question: message }), // Sends correct 'question' key
       });
 
       if (!response.ok) throw new Error('Network response was not ok');
@@ -111,24 +137,35 @@ export default function ChatBot() {
       console.error("Chat Error:", error);
     } finally {
       setIsLoading(false);
-      setSelectedText(''); // Clear context after transmission
     }
   };
 
-  // 🚀 FIX: Clicking 'Ask AI' button simply opens the chat and sets the focus
-  const handleAskAI = () => {
-    setTooltip({ show: false, x: 0, y: 0 });
-    setIsOpen(true);
-    // The ChatWindow component should handle setting the input value based on selectedText if needed,
-    // but the main logic is now to prepare the context state (which handleSend consumes).
-  };
+  // handleAskAI function removed as per requirements
 
   return (
     <>
       {/* Floating Button with Framer Motion animation */}
       <motion.button
+        ref={buttonRef}
         className={styles.chatButton}
-        onClick={() => setIsOpen(!isOpen)}
+        style={
+          position !== null
+            ? {
+                position: 'fixed',
+                top: `${position.y}px`,
+                left: `${position.x}px`,
+                bottom: 'auto',
+                right: 'auto',
+                cursor: isDragging ? 'grabbing' : 'grab',
+                zIndex: 99999
+              }
+            : {
+                cursor: isDragging ? 'grabbing' : 'grab',
+                zIndex: 99999
+              }
+        }
+        onMouseDown={handleMouseDown}
+        onClick={() => !isDragging && setIsOpen(!isOpen)}
         // Pulse animation from Framer Motion
         animate={{ scale: [1, 1.05, 1] }}
         transition={{ duration: 2, repeat: Infinity, repeatType: "reverse" }}
@@ -141,6 +178,11 @@ export default function ChatBot() {
         {isOpen && (
           <motion.div
             className={styles.chatWindowContainer}
+            style={{
+              position: 'fixed',
+              right: '20px',
+              bottom: '90px', // Fixed position below the button
+            }}
             initial={{ opacity: 0, scale: 0.8, y: 20 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.8, y: 20 }}
@@ -151,20 +193,13 @@ export default function ChatBot() {
               isTyping={isLoading}
               onSendMessage={handleSend}
               onClose={() => setIsOpen(false)}
-              selectedText={selectedText}
               // Pass the message reference for auto-scrolling
-              messagesEndRef={messagesEndRef} 
+              messagesEndRef={messagesEndRef}
             />
           </motion.div>
         )}
       </AnimatePresence>
 
-      {/* Selection Tooltip */}
-      <SelectionTooltip
-        show={tooltip.show}
-        position={{ x: tooltip.x, y: tooltip.y }}
-        onAskAI={handleAskAI}
-      />
     </>
   );
 }

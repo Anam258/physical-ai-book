@@ -27,18 +27,38 @@
 
 @media screen and (max-width: 996px) {
   .heroContainer {
-    flex-direction: column;
+    flex-direction: column-reverse;
     text-align: center;
   }
 }
 
 .heroText {
-  flex: 1;
+  flex: 1.2;
   max-width: 600px;
+  padding-right: 2rem;
+}
+
+@media screen and (max-width: 996px) {
+  .heroText {
+    padding-right: 0;
+    flex: 1;
+  }
+}
+
+.heroRobotContainer {
+  flex: 0.8;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@media screen and (max-width: 996px) {
+  .heroRobotContainer {
+    flex: 1;
+  }
 }
 
 .heroImage {
-  flex: 1;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -259,4 +279,17 @@
 .weekGrid .card p {
   color: #B0B0B0;
   margin-bottom: 0;
+}
+
+/* Hero Robot Animation Styles */
+.heroRobotContainer {
+  display: inline-block;
+  will-change: transform;
+}
+
+/* Reduced motion fallback */
+@media (prefers-reduced-motion: reduce) {
+  .heroRobotContainer {
+    animation: none !important;
+  }
 }

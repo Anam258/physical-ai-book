@@ -1,4 +1,5 @@
-![Hero Diagram: Physics, Gravity, Collisions in Gazebo](../../static/img/gazebo-twin.png)
+
+# Gazebo Simulation 1: Physics, Gravity, Collisions
 
 :::info Learning Objectives
 * Understand Gazebo's physics engine and its role in robot simulation
@@ -6,8 +7,8 @@
 * Implement realistic physical interactions in simulation environments
 * Optimize simulation parameters for performance and accuracy
 :::
+![Hero Diagram: Physics, Gravity, Collisions in Gazebo](../../static/img/gazebo-twin.png)
 
-# Gazebo Simulation 1: Physics, Gravity, Collisions
 
 Gazebo is a powerful 3D simulation environment that provides realistic physics simulation for robotics applications. The physics engine is crucial for humanoid robots as it simulates real-world forces like *gravity*, *friction*, and *collision dynamics* that significantly impact robot behavior.
 

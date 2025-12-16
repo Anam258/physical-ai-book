@@ -1,4 +1,5 @@
-![Hero Diagram: ROS 2 Nodes, Topics, Services](../../static/img/ros2-network2.jpg)
+
+# ROS 2 Fundamentals 1: Nodes, Topics, and Services
 
 :::info Learning Objectives
 * Understand the core concepts of ROS 2 architecture
@@ -6,8 +7,7 @@
 * Explore the publish-subscribe communication model using topics
 * Master service-based communication patterns
 :::
-
-# ROS 2 Fundamentals 1: Nodes, Topics, and Services
+![Hero Diagram: ROS 2 Nodes, Topics, Services](../../static/img/ros2-network2.jpg)
 
 The Robot Operating System 2 (ROS 2) provides a flexible framework for developing robot applications. At its core, ROS 2 is designed around a **distributed** architecture that enables communication between different software components called *nodes*.
 

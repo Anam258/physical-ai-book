@@ -1,4 +1,5 @@
-![Hero Diagram: URDF for Humanoids](../../static/img/ros2-network3.jpg)
+
+# ROS 2 Fundamentals 3: URDF for Humanoids
 
 :::info Learning Objectives
 * Understand the Unified Robot Description Format (URDF) for humanoid robots
@@ -6,8 +7,7 @@
 * Implement kinematic chains for bipedal locomotion
 * Validate and visualize URDF models in RViz and Gazebo
 :::
-
-# ROS 2 Fundamentals 3: URDF for Humanoids
+![Hero Diagram: URDF for Humanoids](../../static/img/ros2-network3.jpg)
 
 The Unified Robot Description Format (URDF) is an XML-based format used to describe robot models in ROS. For humanoid robots, URDF becomes particularly important as it defines the complex kinematic structure with multiple degrees of freedom required for bipedal locomotion and dexterous manipulation.
 

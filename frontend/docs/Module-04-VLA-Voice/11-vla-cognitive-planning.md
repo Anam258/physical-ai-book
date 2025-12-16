@@ -1,4 +1,5 @@
-![Hero Diagram: LLMs to ROS 2 Actions](../../static/img/cognitive-planning.png)
+
+# VLA Cognitive Planning: LLMs to ROS 2 Actions
 
 :::info Learning Objectives
 * Understand how Large Language Models (LLMs) can enable cognitive planning for robots
@@ -7,7 +8,8 @@
 * Design prompt engineering strategies for robotic applications
 :::
 
-# VLA Cognitive Planning: LLMs to ROS 2 Actions
+![Hero Diagram: LLMs to ROS 2 Actions](../../static/img/cognitive-planning.png)
+
 
 Large Language Models (LLMs) represent a breakthrough in enabling cognitive planning for robots, allowing them to understand high-level goals and decompose them into executable actions. This cognitive layer bridges natural language commands with low-level robot control, enabling more intuitive human-robot interaction.
 

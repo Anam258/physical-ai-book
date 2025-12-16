@@ -1,4 +1,6 @@
-![Hero Diagram: Whisper & Voice Commands](../../static/img/VLA-voice-action.png)
+
+# VLA Voice Action: Whisper & Voice Commands
+
 
 :::info Learning Objectives
 * Implement voice command recognition using Whisper and similar models
@@ -7,7 +9,7 @@
 * Process natural language commands for robot action execution
 :::
 
-# VLA Voice Action: Whisper & Voice Commands
+![Hero Diagram: Whisper & Voice Commands](../../static/img/VLA-voice-action.png)
 
 Voice-based interaction represents a natural and intuitive way for humans to communicate with humanoid robots. Leveraging models like OpenAI's Whisper for speech recognition, robots can understand and execute complex voice commands, enabling seamless human-robot interaction in various environments.
 

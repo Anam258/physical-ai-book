@@ -2,99 +2,72 @@ import clsx from 'clsx';
 import Link from '@docusaurus/Link';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import Layout from '@theme/Layout';
+import { motion, useReducedMotion } from 'framer-motion';
 
 import Heading from '@theme/Heading';
 import styles from './index.module.css';
 
+// ✅ Hamara Feature Component
+import HomepageFeatures from '@site/src/components/HomepageFeatures';
+
 function HomepageHeader() {
   const {siteConfig} = useDocusaurusContext();
+  const shouldReduceMotion = useReducedMotion();
+
   return (
     <header className={clsx('hero hero--primary', styles.heroBanner)}>
       <div className="container">
         <div className={styles.heroContainer}>
           <div className={styles.heroText}>
+            {/* ✨ Updated Simple & Catchy Heading */}
             <Heading as="h1" className="hero__title gradient-text">
-              The Future of Embodied Intelligence
+              Build the Robots of Tomorrow
             </Heading>
-            <p className="hero__subtitle gradient-text">Master Physical AI, ROS 2, and Humanoids.</p>
-            <div className={styles.buttons}>
+            
+            {/* ✨ Clear Subtitle */}
+            <p className="hero__subtitle gradient-text" style={{ fontSize: '1.3rem', marginTop: '10px' }}>
+              The Interactive Handbook for Physical AI, ROS 2, and Humanoid Robotics.
+            </p>
+            
+            <div className={styles.buttons} style={{ marginTop: '2rem' }}>
               <Link
-                className="button button--primary button--lg glowing-button"
-                to="docs/Introduction/intro-physical-ai">
-                Start Learning
+                className="button button--primary button--lg"
+                to="docs/Introduction/intro-physical-ai"
+                // ✨ Button Styling (Neon Glow)
+                style={{
+                  backgroundColor: '#00f7ff',
+                  color: '#0f172a',
+                  fontWeight: 'bold',
+                  border: 'none',
+                  boxShadow: '0 0 20px rgba(0, 247, 255, 0.6)',
+                  transition: 'all 0.3s ease',
+                  padding: '15px 30px',
+                  fontSize: '1.2rem',
+                  borderRadius: '50px'
+                }}>
+                🚀 Start Your Journey
               </Link>
             </div>
           </div>
-          <img
-            src="img/hero-robot-cute.png"
-            alt="Cute AI Robot Assistant"
-            className="hero-robot-static"
-          />
+          
+          <motion.div
+            className={styles.heroRobotContainer}
+            animate={shouldReduceMotion ? {} : { y: [-10, 10, -10] }}
+            transition={{
+              duration: 3,
+              repeat: Infinity,
+              ease: "easeInOut"
+            }}
+          >
+            <img
+              src="img/hero-robot-cute.png"
+              alt="Cute AI Robot Assistant"
+              className="hero-robot-static"
+            />
+          </motion.div>
         </div>
       </div>
     </header>
-  );
-}
-
-function TechStackStrip() {
-  return (
-    <section className={styles.techStackStrip}>
-      <div className="container">
-        <div className={styles.techStackContent}>
-          <p className={styles.techStackText}>Powered By Industry Standards:</p>
-          <div className={styles.techStackItems}>
-            <span className={styles.techItem}>NVIDIA Isaac Sim</span>
-            <span className={styles.techItem}>ROS 2</span>
-            <span className={styles.techItem}>Gazebo</span>
-            <span className={styles.techItem}>Python</span>
-            <span className={styles.techItem}>OpenCV</span>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function ValueProps() {
-  const valueProps = [
-    {
-      title: "Cutting-Edge Technology",
-      description: "Learn with the latest tools and frameworks used in modern robotics development.",
-      icon: "🤖"
-    },
-    {
-      title: "Industry-Aligned Curriculum",
-      description: "Master skills that match real-world robotics and AI industry requirements.",
-      icon: "💼"
-    },
-    {
-      title: "Hands-On Learning",
-      description: "Build and simulate humanoid robots with practical exercises and projects.",
-      icon: "🛠️"
-    }
-  ];
-
-  return (
-    <section className={styles.valuePropsSection}>
-      <div className="container">
-        <div className={styles.sectionTitle}>
-          <Heading as="h2" className="gradient-text">Why Physical AI?</Heading>
-        </div>
-        <div className={styles.valuePropsGrid}>
-          {valueProps.map((prop, index) => (
-            <div className={styles.glassCard} key={index}>
-              <div className={styles.glassCardHeader}>
-                <span className={styles.icon}>{prop.icon}</span>
-                <Heading as="h3">{prop.title}</Heading>
-              </div>
-              <div className={styles.glassCardBody}>
-                <p>{prop.description}</p>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
   );
 }
 
@@ -103,11 +76,25 @@ export default function Home() {
   return (
     <Layout
       title={`Home - ${siteConfig.title}`}
-      description="Physical AI & Humanoid Robotics Handbook: The Future of Embodied Intelligence">
+      description="Physical AI & Humanoid Robotics Handbook">
       <HomepageHeader />
-      <TechStackStrip />
+      
       <main>
-        <ValueProps />
+        {/* ✅ Separator Line & Heading for Features */}
+        <div className="container" style={{ textAlign: 'center', marginTop: '4rem', marginBottom: '1rem' }}>
+          <hr style={{ border: '0', height: '1px', background: 'linear-gradient(90deg, transparent, #00f7ff, transparent)', marginBottom: '3rem', opacity: 0.5 }} />
+          
+          <Heading as="h2" className="gradient-text" style={{ fontSize: '2.5rem', fontWeight: 'bold', marginBottom: '0.5rem' }}>
+            Everything You Need to Master Physical AI
+          </Heading>
+          
+          <p style={{ fontSize: '1.2rem', color: '#cbd5e1', maxWidth: '600px', margin: '0 auto 2rem auto' }}>
+            Experience an intelligent textbook that adapts to you.
+          </p>
+        </div>
+
+        {/* ✅ Glass Features */}
+        <HomepageFeatures />
       </main>
     </Layout>
   );

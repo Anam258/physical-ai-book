@@ -1,4 +1,5 @@
-![Hero Diagram: Python Agents & rclpy](../../static/img/ros2-network.png)
+
+# ROS 2 Fundamentals 2: Python Agents & rclpy
 
 :::info Learning Objectives
 * Master the rclpy library for Python-based ROS 2 development
@@ -6,8 +7,7 @@
 * Implement action servers and clients in Python
 * Understand asynchronous programming patterns in ROS 2 Python nodes
 :::
-
-# ROS 2 Fundamentals 2: Python Agents & rclpy
+![Hero Diagram: Python Agents & rclpy](../../static/img/ros2-network.png)
 
 The `rclpy` library provides Python bindings for ROS 2, enabling developers to create ROS 2 nodes using Python. Python's simplicity and rich ecosystem make it an excellent choice for rapid prototyping and development of robotic applications.
 

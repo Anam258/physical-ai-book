@@ -1,50 +1,21 @@
 /**
- * Custom CSS for Electric Blue & Dark Mode Theme
- * Physical AI & Humanoid Robotics Handbook
+ * Custom CSS for Physical AI & Humanoid Robotics Handbook
+ * Theme: Dark Navy & Neon Cyan (Glassmorphism)
  */
 
-/* Color Variables */
+/* 1. Global Variables */
 :root {
   --ifm-color-primary: #00F5FF;
   --ifm-color-primary-dark: rgb(0, 221, 230);
-  --ifm-color-primary-darker: rgb(0, 208, 217);
-  --ifm-color-primary-darkest: rgb(0, 172, 180);
-  --ifm-color-primary-light: rgb(38, 247, 255);
-  --ifm-color-primary-lighter: rgb(51, 248, 255);
-  --ifm-color-primary-lightest: rgb(89, 251, 255);
   --ifm-background-color: #0A0E2A;
-  --ifm-background-surface-color: #0A0E2A;
-  --ifm-navbar-background-color: #0A0E2A;
-  --ifm-sidebar-background-color: #0A0E2A;
-  --ifm-footer-background-color: #0A0E2A;
+  --ifm-navbar-background-color: rgba(10, 14, 42, 0.85);
   --ifm-text-color: #FFFFFF;
-  --ifm-text-color-secondary: #B0B0B0;
-  --ifm-code-font-size: 95%;
-  --docusaurus-highlighted-code-line-bg: rgba(0, 245, 255, 0.1);
+  --ifm-link-color: #00F5FF;
 }
 
-/* Dark mode theme (now default) */
-[data-theme='dark'] {
-  --ifm-color-primary: #00F5FF;
-  --ifm-color-primary-dark: rgb(0, 221, 230);
-  --ifm-color-primary-darker: rgb(0, 208, 217);
-  --ifm-color-primary-darkest: rgb(0, 172, 180);
-  --ifm-color-primary-light: rgb(38, 247, 255);
-  --ifm-color-primary-lighter: rgb(51, 248, 255);
-  --ifm-color-primary-lightest: rgb(89, 251, 255);
+/* Force Dark Mode */
+html[data-theme='dark'] {
   --ifm-background-color: #0A0E2A;
-  --ifm-background-surface-color: #0A0E2A;
-  --ifm-navbar-background-color: #0A0E2A;
-  --ifm-sidebar-background-color: #0A0E2A;
-  --ifm-footer-background-color: #0A0E2A;
-  --ifm-text-color: #FFFFFF;
-  --ifm-text-color-secondary: #B0B0B0;
-  --docusaurus-highlighted-code-line-bg: rgba(0, 245, 255, 0.3);
-}
-
-/* Additional styling for dark theme consistency */
-html {
-  background-color: #0A0E2A;
 }
 
 body {
@@ -52,125 +23,160 @@ body {
   color: #FFFFFF;
 }
 
-/* Code block styling */
-.docusaurus-highlight-code-line {
-  background-color: rgba(0, 245, 255, 0.1);
-}
-
-/* Link styling */
-a {
-  color: #00F5FF;
-}
-
-a:hover {
-  color: #3affff;
-  text-decoration: underline;
-}
-
-/* Card styling */
-.card {
-  background-color: rgba(10, 14, 42, 0.7);
-  border: 1px solid rgba(0, 245, 255, 0.2);
-  
-}
-
-/* Table styling */
-table {
-  background-color: rgba(10, 14, 42, 0.5);
-}
-
-table th, table td {
-  border: 1px solid rgba(0, 245, 255, 0.2);
-}
-
-/* Glassmorphism for Navbar */
+/* 2. Glassmorphism Navbar */
 .navbar {
-  background: rgba(10, 14, 42, 0.7) !important;
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  border-bottom: 1px solid #00F5FF;
+  background: rgba(10, 14, 42, 0.75) !important;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(0, 245, 255, 0.1);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+  height: 70px;
 }
 
-/* Glassmorphism for Sidebar */
-.menu {
-  background: rgba(10, 14, 42, 0.7) !important;
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  border-right: 1px solid rgba(0, 245, 255, 0.1);
+.navbar__item, .navbar__link {
+  color: #fff;
+  font-weight: 500;
 }
 
-/* Glassmorphism Card styling with hover effects */
-.card {
-  background: rgba(10, 14, 42, 0.5);
-  border: 1px solid rgba(0, 245, 255, 0.2);
-  backdrop-filter: blur(5px);
-  -webkit-backdrop-filter: blur(5px);
-  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+.navbar__link:hover, .navbar__link--active {
+  color: #00F5FF !important;
+  text-shadow: 0 0 10px rgba(0, 245, 255, 0.5);
+}
+
+/* 3. Gradient Pill Button (Fixed for Mobile) 💊 */
+.navbar-auth-button-wrapper {
+  display: flex;
+  align-items: center;
+  margin-left: auto;
+  padding-left: 1rem;
+}
+
+.navbar-auth-button {
+  background: linear-gradient(135deg, #00f7ff 0%, #0072ff 100%);
+  border: none;
+  color: #ffffff;
   
+  /* Sizing */
+  padding: 8px 24px;
+  border-radius: 50px;
+  
+  /* Typography */
+  font-weight: 700;
+  font-size: 14px;
+  letter-spacing: 0.5px;
+  white-space: nowrap; /* 👈 IMPORTANT: Yeh text ko tootne se rokega */
+  
+  /* Effects */
+  cursor: pointer;
+  box-shadow: 0 0 15px rgba(0, 247, 255, 0.4);
+  transition: all 0.3s ease;
+  
+  /* Align Content */
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.navbar-auth-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 0 25px rgba(0, 247, 255, 0.7);
+  filter: brightness(1.1);
+}
+
+/* 📱 MOBILE FIX: Small Screens (Tablets & Phones) */
+@media (max-width: 996px) {
+  .navbar-auth-button {
+    padding: 6px 14px;  /* Padding kam ki */
+    font-size: 12px;    /* Font chota kiya */
+    height: 36px;       /* Height fix ki */
+  }
+
+  .navbar-auth-button-wrapper {
+    padding-left: 0.5rem;
+    margin-right: 10px; /* Thoda gap right side se */
+  }
+}
+
+/* 📱 MOBILE FIX: Extra Small Screens (Phones) */
+@media (max-width: 600px) {
+  .navbar-auth-button {
+    padding: 6px 12px;
+    font-size: 12px;
+    white-space: nowrap;
+  }
+}
+
+/* User Profile Badge */
+.user-initial {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid #00F5FF;
+  color: #00F5FF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+}
+
+/* 4. Glass Cards */
+.card {
+  background: rgba(30, 41, 59, 0.6);
+  border: 1px solid rgba(0, 245, 255, 0.2);
+  backdrop-filter: blur(10px);
+  border-radius: 16px;
+  transition: all 0.3s ease;
 }
 
 .card:hover {
   transform: translateY(-5px);
-  box-shadow: 0 10px 25px rgba(0, 245, 255, 0.3);
-  border: 1px solid rgba(0, 245, 255, 0.4);
+  border-color: #00F5FF;
+  box-shadow: 0 10px 30px rgba(0, 245, 255, 0.2);
 }
 
-/* Gradient text utility class */
+/* 5. Footer & Utilities */
+.footer {
+  background: rgba(10, 25, 47, 0.85);
+  backdrop-filter: blur(10px);
+  border-top: 1px solid rgba(100, 255, 218, 0.1);
+}
+
+.footer__title {
+  color: #cbd5e1; /* Silver/gray text */
+}
+
+.footer a {
+  color: #cbd5e1; /* Silver/gray text */
+  transition: color 0.3s ease;
+}
+
+.footer a:hover {
+  color: #00F5FF !important; /* Neon Cyan on hover */
+  text-shadow: 0 0 10px rgba(0, 245, 255, 0.5);
+}
+
 .gradient-text {
-  background: linear-gradient(90deg, #00F5FF, #8A2BE2);
+  background: linear-gradient(90deg, #FFFFFF, #00F5FF);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
-  display: inline-block;
-}
-/* Glow button styling */
-.button--primary {
-  background: linear-gradient(90deg, #00F5FF, #8A2BE2);
-  border: none;
-  box-shadow: 0 0 15px rgba(0, 245, 255, 0.5);
-  transition: all 0.3s ease;
 }
 
-.button--primary:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 5px 20px rgba(0, 245, 255, 0.8);
-  text-decoration: none;
-}
-
-/* Footer styling */
-.footer {
-  background: rgba(10, 14, 42, 0.7);
-  color: #B0B0B0;
-  backdrop-filter: blur(10px);
-  border-top: 1px solid #00F5FF;
-}
-
-/* Footer copyright styling */
-.footer__copyright {
-  font-size: 1.1rem;
-  font-weight: 700;
-  text-align: center;
-  color: #FFFFFF;
-}
-/* Footer Glow to match the Electric Blue theme */
-.footer {
-  /* Footer ko upar se halki si neon line dega */
-  border-top: 3px solid #00F5FF; 
-  /* Pure neon glow effect */
-  box-shadow: 0 0 10px rgba(0, 245, 255, 0.6); 
-  /* Padding thora zyada kar den taake acha dikhe */
-  padding-top: 35px;
-}
-
-/* Footer links ko Electric Blue color den */
-.footer a {
-  color: #06787c; 
-}
-
-/* Hero Robot Static Image Styling */
 .hero-robot-static {
-  width: 100%;
-  max-width: 600px;
-  height: auto;
-  filter: drop-shadow(0 0 20px rgba(0, 245, 255, 0.3)); /* Electric Blue Glow */
+  max-width: 450px;
+  filter: drop-shadow(0 0 25px rgba(0, 245, 255, 0.4));
+  animation: float 6s ease-in-out infinite;
+}
+
+@media screen and (max-width: 996px) {
+  .hero-robot-static {
+    max-width: 280px;
+  }
+}
+
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-15px); }
+  100% { transform: translateY(0px); }
 }

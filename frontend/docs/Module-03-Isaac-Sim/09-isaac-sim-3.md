@@ -1,4 +1,6 @@
-![Hero Diagram: Nav2 for Bipedal Movement](../../static/img/isaac-brain.png)
+
+# Isaac Sim 3: Nav2 for Bipedal Movement
+
 
 :::info Learning Objectives
 * Understand Nav2 framework for humanoid robot navigation
@@ -7,7 +9,8 @@
 * Integrate perception and navigation for autonomous humanoid systems
 :::
 
-# Isaac Sim 3: Nav2 for Bipedal Movement
+![Hero Diagram: Nav2 for Bipedal Movement](../../static/img/isaac-brain.png)
+
 
 Navigation 2 (Nav2) is ROS 2's state-of-the-art navigation framework, specifically designed for autonomous mobile robots. For humanoid robots, Nav2 requires specialized configuration to handle the unique challenges of bipedal locomotion, including balance constraints, step planning, and dynamic stability during movement.
 

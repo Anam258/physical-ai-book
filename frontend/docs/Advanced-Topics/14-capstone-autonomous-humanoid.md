@@ -1,12 +1,12 @@
-![Hero Diagram: Capstone Autonomous Humanoid](../../static/img/humanoid-capstone.png)
+
+# Capstone: Autonomous Humanoid
 :::info Learning Objectives
 * Integrate all learned concepts into a complete autonomous humanoid system
 * Design system architectures that combine perception, planning, and control
 * Implement end-to-end autonomous behaviors for humanoid robots
 * Evaluate and optimize complex robotic systems for real-world deployment
 :::
-
-# Capstone: Autonomous Humanoid
+![Hero Diagram: Capstone Autonomous Humanoid](../../static/img/humanoid-capstone.png)
 
 The capstone project integrates all concepts learned throughout the course into a complete autonomous humanoid robot system. This project demonstrates the synthesis of ROS 2 fundamentals, simulation environments, perception systems, cognitive planning, and hardware integration into a functional autonomous agent.
 

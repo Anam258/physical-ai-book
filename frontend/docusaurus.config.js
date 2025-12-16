@@ -101,7 +101,7 @@ footer: {
         },
         links: [
           {
-            title: 'Handbook', // Main book section
+            title: 'Docs',
             items: [
               {
                 label: 'Introduction',
@@ -111,45 +111,33 @@ footer: {
                 label: 'ROS 2 Module',
                 to: 'docs/Module-01-ROS2/ros2-fundamentals-1',
               },
-              {
-                label: 'Capstone Project',
-                to: 'docs/Advanced-Topics/capstone-autonomous-humanoid',
-              },
             ],
           },
           {
-            title: 'Source', // Focus on project source/code
+            title: 'Community',
             items: [
               {
-                label: 'GitHub Repository',
+                label: 'GitHub',
                 href: 'https://github.com/Anam258/physical-ai-book',
               },
-              {
-                label: 'Report an Issue',
-                href: 'https://github.com/Anam258/physical-ai-book/issues',
-              },
-              {
-                label: 'Built with Docusaurus',
-                href: 'https://docusaurus.io/',
-              },
-            ],
-          },
-          {
-            title: 'Connect', // Social media links
-            items: [
               {
                 label: 'LinkedIn',
                 href: 'https://www.linkedin.com/in/anum-a-1b82082b5',
               },
+            ],
+          },
+          {
+            title: 'More',
+            items: [
               {
-                label: 'X (Twitter)',
-                href: 'https://x.com/2AnumAnwer',
+                label: 'Quiz',
+                to: 'docs/Introduction/intro-physical-ai', // Placeholder for quiz feature
               },
             ],
           },
         ],
         // Copyright section
-        copyright: `Copyright © ${new Date().getFullYear()} Physical AI & Humanoid Robotics. Developed by Anum Anwer.`,
+        copyright: `Copyright © ${new Date().getFullYear()} Physical AI Handbook. Built with ❤️ and AI by Anum.`,
       },
       
         prism: {

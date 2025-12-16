@@ -1,4 +1,5 @@
-![Hero Diagram: Sim-to-Real Transfer](../../static/img/sim-to-real.jpg)
+
+# Sim-to-Real Transfer
 
 :::info Learning Objectives
 * Understand the challenges and techniques for sim-to-real transfer
@@ -6,8 +7,7 @@
 * Apply system identification methods to bridge the sim-to-real gap
 * Evaluate and validate robot behaviors across simulation and real platforms
 :::
-
-# Sim-to-Real Transfer
+![Hero Diagram: Sim-to-Real Transfer](../../static/img/sim-to-real.jpg)
 
 Sim-to-real transfer is the process of developing and training robotic systems in simulation environments and successfully deploying them on physical robots. This approach significantly reduces development time and costs while ensuring safety during algorithm development. However, the "reality gap" between simulation and the real world presents significant challenges.
 

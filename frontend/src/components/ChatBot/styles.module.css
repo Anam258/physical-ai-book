@@ -1,10 +1,8 @@
 /* Glassmorphism Chat Window with Electric Blue Theme */
 .chatWindow {
-  position: fixed;
-  bottom: 100px;
-  right: 20px;
-  width: 380px;
-  height: 500px;
+  position: relative; /* Changed from fixed to relative to work with container */
+  width: 100%;
+  height: 100%;
   background: rgba(10, 14, 42, 0.8);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
@@ -232,24 +230,29 @@
   cursor: not-allowed;
 }
 
-/* Floating Chat Button */
+/* Floating Chat Button - Now Draggable with Default Bottom-Right Position */
 .chatButton {
   position: fixed;
-  bottom: 20px;
-  right: 20px;
+  bottom: 20px;  /* Default starting point */
+  right: 20px;   /* Default starting point */
   width: 60px;
   height: 60px;
   border-radius: 50%;
   background: #00F5FF;
   border: none;
-  cursor: pointer;
+  cursor: grab; /* Indicates draggable */
   display: flex;
   align-items: center;
   justify-content: center;
   box-shadow: 0 4px 20px 0 rgba(0, 245, 255, 0.4), 0 0 20px rgba(0, 245, 255, 0.3);
-  z-index: 1000;
+  z-index: 99999; /* Very high z-index to stay on top */
   transition: all 0.3s ease;
   animation: pulse 2s infinite;
+}
+
+/* Cursor changes when dragging */
+.chatButton:active {
+  cursor: grabbing; /* Shows when actively dragging */
 }
 
 .chatButton:hover {
@@ -267,6 +270,26 @@
   0% { box-shadow: 0 0 0 0 rgba(0, 247, 255, 0.4); }
   70% { box-shadow: 0 0 0 15px rgba(0, 247, 255, 0); }
   100% { box-shadow: 0 0 0 0 rgba(0, 247, 255, 0); }
+}
+
+/* Chat Window Container - Dynamic Positioning (controlled by React) */
+.chatWindowContainer {
+  z-index: 9998; /* Slightly lower than the button */
+  width: 380px;
+  height: 500px;
+  max-height: 70vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Responsive adjustments for Chat Window Container */
+@media screen and (max-width: 768px) {
+  .chatWindowContainer {
+    width: calc(100vw - 30px);
+    height: 50vh;
+    right: 15px !important;
+    left: 15px !important;
+  }
 }
 
 /* Selection Tooltip */
@@ -337,11 +360,9 @@
 /* Responsive Design */
 @media (max-width: 768px) {
   .chatWindow {
-    width: calc(100vw - 40px);
-    height: 50vh;
+    width: 100%;
+    height: 100%;
     min-height: 300px;
-    bottom: 80px;
-    right: 20px;
   }
 
   .chatButton {

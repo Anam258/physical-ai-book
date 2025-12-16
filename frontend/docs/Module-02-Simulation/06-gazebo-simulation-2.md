@@ -1,4 +1,6 @@
-![Hero Diagram: Unity Rendering & Human-Robot Interaction](../../static/img/gazebo-twin2.jpg)
+
+# Gazebo Simulation 2: Unity Rendering & Human-Robot Interaction
+
 
 :::info Learning Objectives
 * Explore advanced rendering techniques in Gazebo simulation
@@ -7,7 +9,8 @@
 * Configure lighting, materials, and visual effects for photorealistic rendering
 :::
 
-# Gazebo Simulation 2: Unity Rendering & Human-Robot Interaction
+![Hero Diagram: Unity Rendering & Human-Robot Interaction](../../static/img/gazebo-twin2.jpg)
+
 
 Modern robotics simulation increasingly requires photorealistic rendering to support computer vision tasks and human-robot interaction studies. Gazebo's rendering capabilities enable realistic sensor simulation and immersive environments for testing humanoid robots in complex scenarios.
 

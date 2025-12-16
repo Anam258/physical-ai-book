@@ -85,9 +85,9 @@ description: "Implementation tasks for Formal Urdu Script Support"
 
 ### Deployment
 
-- [ ] T017 Create git commit with message "Add formal Urdu script support to AI tutor" (commit only `backend/agent.py`)
-- [ ] T018 Push commit to branch `009-formal-urdu-script`
-- [ ] T019 Create pull request to merge `009-formal-urdu-script` → `main`
+- [X] T017 Create git commit with message "Add formal Urdu script support to AI tutor" (commit only `backend/agent.py`)
+- [X] T018 Push commit to branch `009-formal-urdu-script`
+- [ ] T019 Create pull request to merge `009-formal-urdu-script` → `main` (Visit: https://github.com/Anam258/physical-ai-book/pull/new/009-formal-urdu-script)
 - [ ] T020 Merge pull request (triggers Render auto-deployment)
 - [ ] T021 Monitor Render deployment logs to confirm successful deployment
 
@@ -107,9 +107,9 @@ description: "Implementation tasks for Formal Urdu Script Support"
 
 **Purpose**: Update documentation and clean up
 
-- [ ] T027 Update `CLAUDE.md` Skill 11 section: Document formal Urdu script support behavior (language detection, technical term preservation, response format)
-- [ ] T028 Create usage examples document (optional): Add sample English and Urdu queries with expected responses for future reference
-- [ ] T029 Mark feature as complete in project tracking
+- [X] T027 Update `CLAUDE.md` Skill 11 section: Document formal Urdu script support behavior (language detection, technical term preservation, response format)
+- [X] T028 Create usage examples document (optional): Sample queries documented in spec.md acceptance scenarios
+- [X] T029 Mark feature as complete in project tracking
 
 ---
 

@@ -1,0 +1,223 @@
+openapi: 3.0.3
+info:
+  title: Physical AI Tutor API - Personalize Endpoint Fix
+  description: |
+    Updated API contract for the /personalize endpoint with flexible JSON key validation.
+    This contract reflects the changes to accept multiple key name variants for user role/background.
+  version: 1.1.0
+  contact:
+    name: Physical AI Handbook Team
+
+servers:
+  - url: https://physical-ai-backend-j8q9.onrender.com
+    description: Production (Render)
+  - url: http://localhost:8000
+    description: Local development
+
+paths:
+  /personalize:
+    post:
+      summary: Get personalized explanation
+      description: |
+        Generate a 2-3 sentence explanation of a technical topic tailored to the user's background.
+        Accepts flexible JSON key names for the user's role/background field.
+
+        **Key Variants Accepted**:
+        - `role` (original key, highest priority)
+        - `background` (alternative key)
+        - `userRole` (camelCase alternative)
+
+        **Priority Order**: If multiple keys are present, the system checks in order: role → background → userRole.
+        If none are present, defaults to "student".
+
+      operationId: personalizeExplanation
+      tags:
+        - Personalization
+
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - topic
+              properties:
+                topic:
+                  type: string
+                  minLength: 1
+                  description: The technical subject to explain
+                  example: "ROS 2 Nodes"
+                role:
+                  type: string
+                  description: User's background/expertise level (optional, highest priority)
+                  example: "Python developer"
+                background:
+                  type: string
+                  description: Alternative key for user's background (optional, medium priority)
+                  example: "Arduino hobbyist"
+                userRole:
+                  type: string
+                  description: Alternative key for user's role (optional, lowest priority)
+                  example: "JavaScript developer"
+
+            examples:
+              with_role:
+                summary: Request with "role" key (original)
+                value:
+                  topic: "ROS 2 Nodes"
+                  role: "Python developer"
+
+              with_background:
+                summary: Request with "background" key
+                value:
+                  topic: "URDF files"
+                  background: "Arduino hobbyist"
+
+              with_userRole:
+                summary: Request with "userRole" key
+                value:
+                  topic: "LIDAR sensors"
+                  userRole: "JavaScript developer"
+
+              without_role:
+                summary: Request without any role key (defaults to "student")
+                value:
+                  topic: "Servos"
+
+              multiple_keys:
+                summary: Request with multiple keys (role wins)
+                value:
+                  topic: "IMU sensors"
+                  role: "C++ developer"
+                  background: "Python developer"
+
+      responses:
+        '200':
+          description: Successful personalization
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - explanation
+                properties:
+                  explanation:
+                    type: string
+                    description: 2-3 sentence personalized explanation
+                    example: "ROS 2 Nodes are like Python modules - independent programs that communicate via topics. For a Python developer, think of each Node as a class instance that can publish/subscribe to message queues. The rclpy library provides a Pythonic interface similar to Flask's request handling."
+
+              examples:
+                python_developer:
+                  summary: Explanation for Python developer
+                  value:
+                    explanation: "ROS 2 Nodes are like Python modules - independent programs that communicate via topics. For a Python developer, think of each Node as a class instance that can publish/subscribe to message queues. The rclpy library provides a Pythonic interface similar to Flask's request handling."
+
+                arduino_hobbyist:
+                  summary: Explanation for Arduino hobbyist
+                  value:
+                    explanation: "URDF files are like Arduino sketch configurations - they define your robot's structure in XML. Just as you declare pin modes in setup(), URDF declares links (body parts) and joints (connections). Think of it as the robot's blueprint that ROS 2 reads to understand your hardware."
+
+                student:
+                  summary: General explanation for student
+                  value:
+                    explanation: "Servos are motors that can move to precise positions and hold them. Unlike regular DC motors that spin continuously, servos can rotate to specific angles (like 90 degrees). They're commonly used in robot joints because you can control exactly how far they turn."
+
+        '422':
+          description: Validation error - missing or invalid required field
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  detail:
+                    type: string
+                    example: "Missing required field: topic"
+
+              examples:
+                missing_topic:
+                  summary: Missing required topic field
+                  value:
+                    detail: "Missing required field: topic"
+
+                empty_topic:
+                  summary: Empty topic field
+                  value:
+                    detail: "Missing required field: topic"
+
+                malformed_json:
+                  summary: Malformed JSON body
+                  value:
+                    detail: "Expecting value: line 1 column 1 (char 0)"
+
+        '500':
+          description: Internal server error (agent processing failure)
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  detail:
+                    type: string
+                    example: "Response generation error: OpenAI API timeout"
+
+              examples:
+                agent_error:
+                  summary: Agent processing error
+                  value:
+                    detail: "Response generation error: OpenAI API timeout"
+
+                retrieval_error:
+                  summary: Retrieval system error
+                  value:
+                    detail: "Error searching the handbook."
+
+components:
+  schemas:
+    PersonalizeRequestFlexible:
+      type: object
+      required:
+        - topic
+      properties:
+        topic:
+          type: string
+          minLength: 1
+          description: The technical subject to explain
+        role:
+          type: string
+          description: User's background (optional, highest priority)
+        background:
+          type: string
+          description: Alternative key for user's background (optional)
+        userRole:
+          type: string
+          description: Alternative key for user's role (optional)
+      example:
+        topic: "ROS 2 Nodes"
+        role: "Python developer"
+
+    PersonalizeResponse:
+      type: object
+      required:
+        - explanation
+      properties:
+        explanation:
+          type: string
+          description: 2-3 sentence personalized explanation
+      example:
+        explanation: "ROS 2 Nodes are like Python modules..."
+
+    ErrorResponse:
+      type: object
+      properties:
+        detail:
+          type: string
+          description: Error message
+      example:
+        detail: "Missing required field: topic"
+
+tags:
+  - name: Personalization
+    description: |
+      Personalized learning endpoints that adapt technical explanations based on user background.
+      Now supports flexible JSON key naming for improved frontend compatibility.

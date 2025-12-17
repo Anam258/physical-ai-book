@@ -1,0 +1,238 @@
+openapi: 3.0.3
+info:
+  title: Physical AI Tutor API - Translation & Personalization Extensions
+  description: |
+    API specification for the /translate and /personalize endpoints added to the Physical AI Tutor backend.
+
+    These endpoints extend the existing chatbot API to support:
+    - Technical text translation to formal Urdu (preserving English keywords)
+    - Personalized explanations based on user background
+
+    Base URL (Production): https://physical-ai-backend-j8q9.onrender.com
+    Base URL (Local): http://localhost:8000
+  version: 1.0.0
+  contact:
+    name: Physical AI Handbook Team
+    url: https://anam258.github.io/physical-ai-book/
+
+servers:
+  - url: https://physical-ai-backend-j8q9.onrender.com
+    description: Production server (Render)
+  - url: http://localhost:8000
+    description: Local development server
+
+paths:
+  /translate:
+    post:
+      summary: Translate technical text to formal Urdu
+      description: |
+        Accepts English technical text and returns a formal Urdu translation while preserving
+        all technical keywords (ROS 2, Python, Node, API, etc.) in English.
+
+        Uses the existing RAG agent to ensure translations are contextually accurate based on
+        the Physical AI handbook content.
+      operationId: translateText
+      tags:
+        - Translation
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TranslateRequest'
+            examples:
+              simpleText:
+                summary: Simple technical sentence
+                value:
+                  text: "ROS 2 is a robot operating system that provides libraries and tools."
+              codeExample:
+                summary: Text with code references
+                value:
+                  text: "The publisher node sends messages using the publish() method."
+      responses:
+        '200':
+          description: Successful translation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TranslateResponse'
+              examples:
+                success:
+                  summary: Translated text
+                  value:
+                    translation: "ROS 2 ایک robot operating system ہے جو libraries اور tools فراہم کرتا ہے۔"
+        '422':
+          description: Validation error - missing or invalid fields
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationError'
+              example:
+                detail:
+                  - loc: ["body", "text"]
+                    msg: "field required"
+                    type: "value_error.missing"
+        '500':
+          description: Internal server error - agent processing failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example:
+                detail: "Response generation error: OpenAI API rate limit exceeded"
+
+  /personalize:
+    post:
+      summary: Get personalized explanation for a topic
+      description: |
+        Accepts a robotics/AI topic and user background, returns a 2-3 sentence explanation
+        tailored to that user's expertise level using analogies from their domain.
+
+        Uses the existing RAG agent to ground explanations in handbook content while adapting
+        the presentation style to the user's background.
+      operationId: personalizeExplanation
+      tags:
+        - Personalization
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PersonalizeRequest'
+            examples:
+              pythonDeveloper:
+                summary: Python developer background
+                value:
+                  topic: "URDF files"
+                  role: "Python developer"
+              arduinoHobbyist:
+                summary: Arduino hobbyist background
+                value:
+                  topic: "ROS 2 Publishers"
+                  role: "Arduino hobbyist"
+      responses:
+        '200':
+          description: Successful personalization
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PersonalizeResponse'
+              examples:
+                success:
+                  summary: Personalized explanation
+                  value:
+                    explanation: "URDF files are like XML config files in Python projects - they define your robot's structure using tags and attributes. Just as you'd use dictionaries to represent nested data in Python, URDF uses nested XML elements to describe links (robot parts) and joints (connections)."
+        '422':
+          description: Validation error - missing or invalid fields
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationError'
+              example:
+                detail:
+                  - loc: ["body", "role"]
+                    msg: "field required"
+                    type: "value_error.missing"
+        '500':
+          description: Internal server error - agent processing failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example:
+                detail: "Error searching the handbook."
+
+components:
+  schemas:
+    TranslateRequest:
+      type: object
+      required:
+        - text
+      properties:
+        text:
+          type: string
+          description: The English technical text to be translated to formal Urdu
+          example: "ROS 2 is a robot operating system that provides libraries and tools."
+          minLength: 1
+
+    TranslateResponse:
+      type: object
+      required:
+        - translation
+      properties:
+        translation:
+          type: string
+          description: The formal Urdu translation with preserved English technical keywords
+          example: "ROS 2 ایک robot operating system ہے جو libraries اور tools فراہم کرتا ہے۔"
+
+    PersonalizeRequest:
+      type: object
+      required:
+        - topic
+        - role
+      properties:
+        topic:
+          type: string
+          description: The robotics or AI topic to be explained
+          example: "URDF files"
+          minLength: 1
+        role:
+          type: string
+          description: The user's background or expertise level (e.g., "Python developer", "Arduino hobbyist")
+          example: "Python developer"
+          minLength: 1
+
+    PersonalizeResponse:
+      type: object
+      required:
+        - explanation
+      properties:
+        explanation:
+          type: string
+          description: A 2-3 sentence contextualized explanation tailored to the user's background
+          example: "URDF files are like XML config files in Python projects - they define your robot's structure using tags and attributes. Just as you'd use dictionaries to represent nested data in Python, URDF uses nested XML elements to describe links (robot parts) and joints (connections)."
+
+    ErrorResponse:
+      type: object
+      required:
+        - detail
+      properties:
+        detail:
+          type: string
+          description: Error message describing what went wrong
+          example: "Response generation error: OpenAI API rate limit exceeded"
+
+    ValidationError:
+      type: object
+      required:
+        - detail
+      properties:
+        detail:
+          type: array
+          items:
+            type: object
+            required:
+              - loc
+              - msg
+              - type
+            properties:
+              loc:
+                type: array
+                items:
+                  type: string
+                description: Location of the validation error (e.g., ["body", "text"])
+                example: ["body", "text"]
+              msg:
+                type: string
+                description: Human-readable error message
+                example: "field required"
+              type:
+                type: string
+                description: Error type identifier
+                example: "value_error.missing"
+
+tags:
+  - name: Translation
+    description: Operations for translating technical text to formal Urdu
+  - name: Personalization
+    description: Operations for generating personalized learning explanations

@@ -68,7 +68,16 @@
       "SlashCommand(/sp.tasks)",
       "SlashCommand(/sp.implement)",
       "Bash(dir \"D:\\GIAIC\\Quarter 4\\Hackathon\\physical-ai-humanoid-robotics-textbook\\physical-ai-handbook\\specs\\001-chat-ui-overhaul\\checklists\")",
-      "Bash(dir \"D:\\GIAIC\\Quarter 4\\Hackathon\\physical-ai-humanoid-robotics-textbook\\physical-ai-handbook\\frontend\\src\\components\\ChatBot\")"
+      "Bash(dir \"D:\\GIAIC\\Quarter 4\\Hackathon\\physical-ai-humanoid-robotics-textbook\\physical-ai-handbook\\frontend\\src\\components\\ChatBot\")",
+      "Bash(findstr:*)",
+      "Bash(powershell -ExecutionPolicy Bypass -File \".specify/scripts/powershell/create-new-feature.ps1\" -Json -Number 002 -ShortName \"api-endpoints\" -Description \"Update backend/server.py to fix the 404 errors for the /translate and /personalize endpoints. Please modify server.py to include these two missing POST routes: 1. POST /translate: Accept JSON body with text. Use the run_agent function from agent.py. Prompt the agent to: Translate this technical text to formal Urdu, keeping English keywords. Return JSON: {translation: response}. 2. POST /personalize: Accept JSON body with topic and role. Use the run_agent function from agent.py. Prompt the agent to explain the topic specifically for that user role. Return JSON: {explanation: response}. Ensure imports are correct (from agent import run_agent) and keep the existing /chat route and CORS middleware intact.\")",
+      "Bash(powershell -ExecutionPolicy Bypass -File \".specify/scripts/powershell/create-new-feature.ps1\" -Json -Number 002 -ShortName \"api-endpoints\" \"Update backend/server.py to fix the 404 errors for the /translate and /personalize endpoints\")",
+      "Bash(git checkout:*)",
+      "Bash(dir:*)",
+      "Bash(.specify/scripts/bash/create-phr.sh:*)",
+      "Bash(git rev-parse:*)",
+      "Bash(powershell:*)",
+      "Bash(copy \".specify\\templates\\spec-template.md\" \"specs\\003-fix-personalize-validation\\spec.md\")"
     ],
     "deny": [],
     "ask": []

@@ -1,8 +1,11 @@
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, HTTPException, Request
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from agent import run_agent  
+from dotenv import load_dotenv
 
+
+load_dotenv()
 # Initialize App
 app = FastAPI(title="Physical AI Tutor API")
 
@@ -19,6 +22,15 @@ app.add_middleware(
 class ChatRequest(BaseModel):
     question: str
 
+class TranslateRequest(BaseModel):
+    text: str
+
+# PersonalizeRequest Pydantic model removed to allow flexible JSON keys (role, background, userRole)
+# Frontend sends various key names - see research.md for decision rationale
+# class PersonalizeRequest(BaseModel):
+#     topic: str
+#     role: str
+
 @app.get("/")
 def home():
     return {"message": "Physical AI Tutor API is Running! 🤖"}
@@ -26,15 +38,65 @@ def home():
 @app.post("/chat")
 async def chat_endpoint(request: ChatRequest):
     print(f"📩 Received Query: {request.question}")
-    
+
     try:
-        # call Agent 
+        # call Agent
         response = await run_agent(request.question)
         return {"answer": response}
     except Exception as e:
         print(f"❌ Error: {e}")
         raise HTTPException(status_code=500, detail=str(e))
 
+@app.post("/translate")
+async def translate_endpoint(request: TranslateRequest):
+    print(f"📩 Received Translation Request: {request.text[:50]}...")
+
+    try:
+        # Format prompt with translation instruction
+        query = f"Translate this technical text to formal Urdu, keeping English keywords: {request.text}"
+        # Call existing agent
+        response = await run_agent(query)
+        return {"translation": response}
+    except Exception as e:
+        print(f"❌ Error: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+@app.post("/personalize")
+async def personalize_endpoint(request: Request):
+    try:
+        # Get raw JSON
+        data = await request.json()
+
+        # Log for debugging
+        print(f"📩 Received Personalization Request: {data}")
+
+        # Extract topic (required)
+        topic = data.get("topic")
+        
+        # Role with fallback logic
+        role = data.get("role") or data.get("background") or data.get("userRole") or "student"
+
+        if not topic:
+            raise HTTPException(status_code=422, detail="Missing required field: topic")
+
+        print(f"📝 Extracted - Topic: '{topic}', Role: '{role}'")
+
+        # Format prompt
+        prompt = f"Explain {topic} for someone with {role} background in 2-3 sentences using relevant analogies."
+        
+        response = await run_agent(prompt)
+        
+        return {
+            "analogy": response,
+            "explanation": response,  
+            "response": response,     
+            "content": response,      
+            "answer": response        
+        }
+
+    except Exception as e:
+        print(f"❌ Error: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
 if __name__ == "__main__":
     import uvicorn
     #for Localhost 8000 

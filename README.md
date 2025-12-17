@@ -3,10 +3,6 @@
 > **The World's First Interactive & Agentic AI-Powered Textbook for Robotics.**
 > *Bridging the gap between static content and active learning.*
 
-![Project Banner](https://via.placeholder.com/1200x400.png?text=Physical+AI+Handbook+Banner)
-
----
-
 ## 🚀 Live Demo
 **Click here to use the app:**
 👉 **[View Live Site](https://anam258.github.io/physical-ai-book/)** *(Note: Since the backend runs on free tiers (Render), please allow 30-50 seconds for the first request to wake up the server!)*

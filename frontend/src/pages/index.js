@@ -7,7 +7,7 @@ import { motion, useReducedMotion } from 'framer-motion';
 import Heading from '@theme/Heading';
 import styles from './index.module.css';
 
-// ✅ Hamara Feature Component
+// ✅ Feature Component
 import HomepageFeatures from '@site/src/components/HomepageFeatures';
 
 function HomepageHeader() {

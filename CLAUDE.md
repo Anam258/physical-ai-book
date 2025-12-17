@@ -2,17 +2,6 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-## 🛑 Critical Guidelines (READ FIRST)
-
-1.  **No Ghost Dependencies:** Do NOT install `@better-auth/*` or any Node.js backend libraries. This is a **Python (FastAPI)** backend project.
-2.  **File Hygiene:** NEVER create specification files or folders in the root directory. ALWAYS place spec files inside the `.specify/` directory.
-3.  **Environment Safety:** Docusaurus is client-side. Do NOT use `process.env` in React components as it causes browser crashes. Use hardcoded strings for local development URLs.
-4.  **UI Standards:**
-    * **Modals:** Always use **React Portals** (`ReactDOM.createPortal`) to avoid Z-index issues (modal getting cut off behind hero section).
-    * **Layouts:** Use Flexbox for centering. Avoid absolute positioning that causes content cutoff on scroll.
-
----
-
 ## Project Overview
 
 This is a **Physical AI & Humanoid Robotics Handbook** - an educational platform built with Docusaurus v3 that provides interactive learning content with an AI-powered tutoring chatbot. The project consists of:

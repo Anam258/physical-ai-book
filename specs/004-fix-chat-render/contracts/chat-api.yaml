@@ -1,0 +1,187 @@
+openapi: 3.0.3
+info:
+  title: Physical AI Tutor API - Chat Endpoint
+  version: 1.0.0
+  description: |
+    API contract for the /chat endpoint fix on Render deployment.
+    This specification defines the expected request/response structure and error handling.
+
+servers:
+  - url: http://localhost:8000
+    description: Local development server
+  - url: https://physical-ai-backend-j8q9.onrender.com
+    description: Production server on Render
+
+paths:
+  /chat:
+    post:
+      summary: Send a question to the AI tutor
+      description: |
+        Processes user questions using RAG (Retrieval-Augmented Generation).
+        Retrieves relevant context from the handbook and generates responses using GPT-4o.
+        Supports both English and Urdu script queries.
+      operationId: chatEndpoint
+      tags:
+        - Chat
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ChatRequest'
+            examples:
+              english_query:
+                summary: English query example
+                value:
+                  question: "What is ROS 2?"
+              urdu_query:
+                summary: Urdu script query example
+                value:
+                  question: "ROS 2 کیا ہے؟"
+              long_query:
+                summary: Long contextual query
+                value:
+                  question: "Explain how to create a ROS 2 node in Python with publishers and subscribers"
+      responses:
+        '200':
+          description: Successful response with generated answer
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ChatResponse'
+              examples:
+                success:
+                  summary: Successful answer
+                  value:
+                    answer: "ROS 2 (Robot Operating System 2) is a modern robotics framework designed for distributed systems. It provides tools and libraries for building robot applications..."
+        '400':
+          description: Bad request - invalid input
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                validation_error:
+                  summary: Missing required field
+                  value:
+                    error: "validation_error"
+                    message: "Invalid request: 'question' field is required"
+                    detail: "Field required"
+                    timestamp: "2025-12-18T10:30:45Z"
+                    endpoint: "/chat"
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                retrieval_error:
+                  summary: Qdrant retrieval failure
+                  value:
+                    error: "retrieval_error"
+                    message: "Unable to search the handbook. Please try again."
+                    detail: "QdrantException: Connection timeout"
+                    timestamp: "2025-12-18T10:30:45Z"
+                    endpoint: "/chat"
+                generation_error:
+                  summary: OpenAI API failure
+                  value:
+                    error: "generation_error"
+                    message: "Error generating response. Please try again."
+                    detail: "OpenAI API rate limit exceeded"
+                    timestamp: "2025-12-18T10:30:45Z"
+                    endpoint: "/chat"
+
+  /health:
+    get:
+      summary: Health check endpoint (to be added)
+      description: Simple endpoint to verify server is running and responsive
+      operationId: healthCheck
+      tags:
+        - System
+      responses:
+        '200':
+          description: Server is healthy
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: "healthy"
+                  timestamp:
+                    type: string
+                    format: date-time
+                    example: "2025-12-18T10:30:45Z"
+
+components:
+  schemas:
+    ChatRequest:
+      type: object
+      required:
+        - question
+      properties:
+        question:
+          type: string
+          description: User's question in English or Urdu script
+          minLength: 1
+          maxLength: 5000
+          example: "What is ROS 2?"
+
+    ChatResponse:
+      type: object
+      required:
+        - answer
+      properties:
+        answer:
+          type: string
+          description: Generated answer from the AI tutor
+          example: "ROS 2 (Robot Operating System 2) is a modern robotics framework..."
+
+    ErrorResponse:
+      type: object
+      required:
+        - error
+        - message
+        - timestamp
+        - endpoint
+      properties:
+        error:
+          type: string
+          enum:
+            - validation_error
+            - retrieval_error
+            - generation_error
+            - server_error
+            - timeout_error
+          description: Error category
+          example: "retrieval_error"
+        message:
+          type: string
+          description: User-friendly error message
+          example: "Unable to search the handbook. Please try again."
+        detail:
+          type: string
+          description: Technical error details (optional, for debugging)
+          example: "QdrantException: Connection timeout"
+        timestamp:
+          type: string
+          format: date-time
+          description: ISO 8601 timestamp when error occurred
+          example: "2025-12-18T10:30:45Z"
+        endpoint:
+          type: string
+          description: API endpoint where error occurred
+          example: "/chat"
+
+tags:
+  - name: Chat
+    description: AI tutor chat endpoints
+  - name: System
+    description: System health and monitoring endpoints
+
+externalDocs:
+  description: Feature specification
+  url: ../spec.md

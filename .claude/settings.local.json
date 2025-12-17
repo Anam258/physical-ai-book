@@ -77,7 +77,15 @@
       "Bash(.specify/scripts/bash/create-phr.sh:*)",
       "Bash(git rev-parse:*)",
       "Bash(powershell:*)",
-      "Bash(copy \".specify\\templates\\spec-template.md\" \"specs\\003-fix-personalize-validation\\spec.md\")"
+      "Bash(copy \".specify\\templates\\spec-template.md\" \"specs\\003-fix-personalize-validation\\spec.md\")",
+      "SlashCommand(/sp.specify)",
+      "Bash(mkdir:*)",
+      "Bash(touch:*)",
+      "WebFetch(domain:render.com)",
+      "WebFetch(domain:github.com)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(git push:*)"
     ],
     "deny": [],
     "ask": []

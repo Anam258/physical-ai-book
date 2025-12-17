@@ -1,11 +1,17 @@
 from fastapi import FastAPI, HTTPException, Request
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
-from agent import run_agent  
+from agent import run_agent
 from dotenv import load_dotenv
+from datetime import datetime
+import traceback
 
 
 load_dotenv()
+
+# Utility function for structured logging
+def log_timestamp():
+    return datetime.utcnow().isoformat() + "Z"
 # Initialize App
 app = FastAPI(title="Physical AI Tutor API")
 
@@ -37,14 +43,22 @@ def home():
 
 @app.post("/chat")
 async def chat_endpoint(request: ChatRequest):
-    print(f"📩 Received Query: {request.question}")
+    timestamp = log_timestamp()
+    print(f"[{timestamp}] INFO /chat [received] Query: {request.question[:100]}...")
+    print(f"[{timestamp}] DEBUG /chat [validating] Request body: {request.dict()}")
 
     try:
-        # call Agent
+        print(f"[{timestamp}] INFO /chat [calling_agent] Starting run_agent...")
         response = await run_agent(request.question)
-        return {"answer": response}
+        print(f"[{timestamp}] INFO /chat [agent_complete] Response length: {len(response)} chars")
+
+        result = {"answer": response}
+        print(f"[{timestamp}] INFO /chat [responding] Sending response with keys: {list(result.keys())}")
+        return result
     except Exception as e:
-        print(f"❌ Error: {e}")
+        print(f"[{timestamp}] ERROR /chat [error] Exception type: {type(e).__name__}")
+        print(f"[{timestamp}] ERROR /chat [error] Message: {str(e)}")
+        print(f"[{timestamp}] ERROR /chat [traceback] {traceback.format_exc()}")
         raise HTTPException(status_code=500, detail=str(e))
 
 @app.post("/translate")

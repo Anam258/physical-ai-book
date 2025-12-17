@@ -1,5 +1,6 @@
 import os
 import asyncio
+from datetime import datetime
 from dotenv import load_dotenv
 from openai import OpenAI
 from retriveing import retrieve  # Import retrieval tool
@@ -63,36 +64,42 @@ Response: "ROS 2 (Robot Operating System 2) ایک modern robotics framework ہ�
 """
 
 async def run_agent(user_query: str):
-    print(f"\n🤖 Thinking about: '{user_query}'...")
-    
+    timestamp = datetime.utcnow().isoformat() + "Z"
+    print(f"[{timestamp}] INFO [agent] Received query: '{user_query[:100]}...'")
+
     # 1. Retrieve data from the handbook
-    print("📚 Searching handbook...")
+    print(f"[{timestamp}] INFO [agent] Starting retrieval...")
     try:
         context_text = retrieve(user_query)
+        print(f"[{timestamp}] INFO [agent] Retrieval complete. Context length: {len(context_text) if context_text else 0}")
     except Exception as e:
-        print(f"Retrieval Error: {e}")
+        print(f"[{timestamp}] ERROR [agent] Retrieval failed: {type(e).__name__} - {str(e)}")
         return "Error searching the handbook."
-    
+
     if not context_text:
+        print(f"[{timestamp}] WARN [agent] No context found for query")
         return "I couldn't find any relevant information in the handbook."
 
     # 2. Generate answer using OpenAI SDK
-    print("💡 Generating answer...")
-    
+    print(f"[{timestamp}] INFO [agent] Calling OpenAI GPT-4o...")
+
     try:
         # Calling OpenAI Chat Completion API
         response = client.chat.completions.create(
-            model="gpt-4o",  
+            model="gpt-4o",
             messages=[
                 {"role": "system", "content": SYSTEM_PROMPT},
                 {"role": "user", "content": f"CONTEXT:\n{context_text}\n\nQUESTION:\n{user_query}"}
             ],
             temperature=0.2
         )
-        
-        return response.choices[0].message.content
+
+        answer = response.choices[0].message.content
+        print(f"[{timestamp}] INFO [agent] OpenAI complete. Answer length: {len(answer)}")
+        return answer
 
     except Exception as e:
+        print(f"[{timestamp}] ERROR [agent] OpenAI failed: {type(e).__name__} - {str(e)}")
         return f"Response generation error: {e}"
 
 # ---------------------------------------------------------

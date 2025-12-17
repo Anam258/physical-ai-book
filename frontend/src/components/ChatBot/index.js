@@ -11,7 +11,7 @@ export default function ChatBot() {
   const [isLoading, setIsLoading] = useState(false);
   const [nextMessageId, setNextMessageId] = useState(2);
 
-  const API_URL = 'http://localhost:8000/chat';
+  const API_URL = 'https://physical-ai-backend-j8q9.onrender.com/chat';
 
   // State for drag functionality
   const [position, setPosition] = useState(null); // Initialize to null to use CSS default position

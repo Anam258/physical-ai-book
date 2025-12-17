@@ -8,3 +8,4 @@ google-genai
 python-multipart
 google-generativeai
 cohere
+openai

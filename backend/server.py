@@ -42,25 +42,40 @@ def home():
     return {"message": "Physical AI Tutor API is Running! 🤖"}
 
 @app.post("/chat")
-async def chat_endpoint(request: ChatRequest):
+async def chat_endpoint(request: Request): # 'ChatRequest' hata kar 'Request' kar diya
     timestamp = log_timestamp()
-    print(f"[{timestamp}] INFO /chat [received] Query: {request.question[:100]}...")
-    print(f"[{timestamp}] DEBUG /chat [validating] Request body: {request.dict()}")
-
     try:
-        print(f"[{timestamp}] INFO /chat [calling_agent] Starting run_agent...")
-        response = await run_agent(request.question)
-        print(f"[{timestamp}] INFO /chat [agent_complete] Response length: {len(response)} chars")
+        data = await request.json()
+        print(f"[{timestamp}] INFO /chat [received] Body: {data}")
 
-        result = {"answer": response}
-        print(f"[{timestamp}] INFO /chat [responding] Sending response with keys: {list(result.keys())}")
+        question = data.get("question") or data.get("message")
+        
+        if not question:
+            print(f"[{timestamp}] WARNING /chat - No question found in request")
+            return {"answer": "I didn't receive a question. Please try again!"}
+
+        print(f"[{timestamp}] INFO /chat [calling_agent] Query: {question[:100]}...")
+        response = await run_agent(question)
+        
+        result = {
+            "answer": response,
+            "response": response,
+            "content": response,
+            "status": "success"
+        }
+        
+        print(f"[{timestamp}] INFO /chat [responding] Success!")
         return result
-    except Exception as e:
-        print(f"[{timestamp}] ERROR /chat [error] Exception type: {type(e).__name__}")
-        print(f"[{timestamp}] ERROR /chat [error] Message: {str(e)}")
-        print(f"[{timestamp}] ERROR /chat [traceback] {traceback.format_exc()}")
-        raise HTTPException(status_code=500, detail=str(e))
 
+    except Exception as e:
+        print(f"[{timestamp}] ERROR /chat [error] {str(e)}")
+        print(f"[{timestamp}] ERROR /chat [traceback] {traceback.format_exc()}")
+        # Error aane par frontend crash na ho, isliye friendly message bhejien
+        return {
+            "answer": "❌ Error: My brain is a bit foggy on the server. Please check Render logs.",
+            "error": str(e)
+        }
+    
 @app.post("/translate")
 async def translate_endpoint(request: TranslateRequest):
     print(f"📩 Received Translation Request: {request.text[:50]}...")

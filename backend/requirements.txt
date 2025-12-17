@@ -1,0 +1,10 @@
+fastapi
+uvicorn
+python-multipart
+python-dotenv
+pydantic
+qdrant-client
+google-genai
+python-multipart
+google-generativeai
+cohere
